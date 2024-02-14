@@ -2,4 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="statusBarWhite">#F4FAFF</color>
+    <color name="statusBarIconsColor">#4D4D87</color>
+    <color name="navigationBarWhite">#F4FAFF</color>
+    <color name="categoryButtonColor">#525DC0</color>
+    <color name="favoritesButtonColor">#E13E3E</color>
+    
 </resources>
