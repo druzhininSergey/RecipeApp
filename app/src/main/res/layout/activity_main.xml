@@ -38,7 +38,7 @@
 
         <Space
             android:layout_width="@dimen/space_between_categories_and_favourites"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <Button
             style="@style/StyleNavButton"
@@ -52,6 +52,5 @@
             app:iconPadding="@dimen/icon_heart_padding" />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
