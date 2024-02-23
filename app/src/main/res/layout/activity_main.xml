@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/main_background_color"
     tools:context=".MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -22,33 +22,32 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16sp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginHorizontal="@dimen/main_margin_horizontal"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/categoryButtonColor"
+            android:backgroundTint="@color/category_button_color"
             android:text="@string/button_category" />
 
         <Button
             style="@style/StyleNavButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="2dp"
             android:layout_weight="1"
-            android:backgroundTint="@color/favoritesButtonColor"
+            android:backgroundTint="@color/favorites_button_color"
             android:text="@string/button_favourites"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
             app:iconPadding="10dp" />
-
 
     </LinearLayout>
 
