@@ -6,5 +6,5 @@
     <color name="navigation_bar_white">#F4FAFF</color>
     <color name="category_button_color">#525DC0</color>
     <color name="favorites_button_color">#E13E3E</color>
-    <color name="main_background_color">#D9D9D9</color>
+    <color name="main_background_color">#F4FAFF</color>
 </resources>
