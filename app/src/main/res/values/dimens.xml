@@ -2,5 +2,6 @@
 <resources>
     <dimen name="main_margin_horizontal">16dp</dimen>
     <dimen name="main_margin_bottom">8dp</dimen>
-    
+    <dimen name="space_between_categories_and_favourites">4dp</dimen>
+    <dimen name="icon_heart_padding">10dp</dimen>
 </resources>
