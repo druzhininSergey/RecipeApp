@@ -11,6 +11,7 @@
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/main_margin_bottom"
         android:background="@color/main_background_color"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +30,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/btnCategory"
             style="@style/StyleNavButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/category_button_color"
@@ -41,8 +43,9 @@
             android:layout_height="match_parent" />
 
         <Button
+            android:id="@+id/btn_favorites"
             style="@style/StyleNavButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/favorites_button_color"
