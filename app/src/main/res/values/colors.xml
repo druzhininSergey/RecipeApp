@@ -2,8 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="status_bar_white">#F4FAFF</color>
-    <color name="navigation_bar_white">#F4FAFF</color>
     <color name="category_button_color">#525DC0</color>
     <color name="favorites_button_color">#E13E3E</color>
     <color name="main_background_color">#F4FAFF</color>
