@@ -22,25 +22,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.btnCategory.setOnClickListener {
-            openCategory()
+            supportFragmentManager.commit {
+                replace<CategoriesListFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+            }
         }
         binding.btnFavorites.setOnClickListener {
-            openFavorites()
+            supportFragmentManager.commit {
+                replace<FavoritesFragment>(R.id.mainContainer)
+                setReorderingAllowed(true)
+            }
         }
     }
-
-    private fun openCategory() {
-        supportFragmentManager.commit {
-            replace<CategoriesListFragment>(R.id.mainContainer)
-            setReorderingAllowed(true)
-        }
-    }
-
-    private fun openFavorites() {
-        supportFragmentManager.commit {
-            replace<FavoritesFragment>(R.id.mainContainer)
-            setReorderingAllowed(true)
-        }
-    }
-
 }
