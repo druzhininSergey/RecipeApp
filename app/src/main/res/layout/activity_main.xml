@@ -15,8 +15,10 @@
         android:background="@color/main_background_color"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:layout="@layout/fragment_list_categories" />
 
     <LinearLayout
@@ -36,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/category_button_color"
-            android:text="@string/button_category" />
+            android:text="@string/category" />
 
         <Space
             android:layout_width="@dimen/space_between_categories_and_favourites"
@@ -49,10 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/favorites_button_color"
-            android:text="@string/button_favourites"
+            android:text="@string/favourites"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
-            app:iconPadding="@dimen/icon_heart_padding" />
+            app:iconPadding="@dimen/main_text_padding" />
 
     </LinearLayout>
 
