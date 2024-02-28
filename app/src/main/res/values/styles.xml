@@ -14,6 +14,5 @@
         <item name="android:paddingVertical">10dp</item>
         <item name="android:paddingHorizontal">0dp</item>
     </style>
-    
 
 </resources>
