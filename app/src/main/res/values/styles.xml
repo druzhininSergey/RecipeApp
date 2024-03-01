@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="StyleTitle20" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/montserrat_alternates_semi_bold</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/title_color</item>
+    </style>
+
     <style name="StyleTitle14" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
         <item name="fontFamily">@font/montserrat_alternates_semi_bold</item>
         <item name="textAllCaps">true</item>
-        <item name="textFillColor">@color/white</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="StyleNavButton" parent="Widget.Material3.Button">

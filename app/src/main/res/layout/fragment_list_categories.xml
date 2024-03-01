@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/StyleTitle14"
+                style="@style/StyleTitle20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/main_margin"
@@ -36,7 +36,6 @@
                 android:background="@drawable/shape_rounded_containers_title"
                 android:padding="@dimen/main_text_padding"
                 android:text="@string/category"
-                android:textColor="@color/title_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
