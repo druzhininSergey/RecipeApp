@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="RecipeDescription" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/description_text_color</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="StyleTitle20" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
         <item name="fontFamily">@font/montserrat_alternates_semi_bold</item>
