@@ -4,4 +4,5 @@
     <dimen name="main_margin_half">8dp</dimen>
     <dimen name="space_between_categories_and_favourites">4dp</dimen>
     <dimen name="main_text_padding">10dp</dimen>
+    <dimen name="title_image_height">224dp</dimen>
 </resources>
