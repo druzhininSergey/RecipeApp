@@ -46,13 +46,13 @@
             android:id="@+id/rvCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_category"
             android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_marginTop="@dimen/main_margin_half"
             android:background="@color/main_background_color"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            tools:itemCount="6" />
+            tools:itemCount="6"
+            tools:listitem="@layout/item_category" />
 
     </LinearLayout>
 

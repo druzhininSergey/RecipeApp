@@ -2,15 +2,11 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/StyleCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/main_margin_half"
-    android:layout_marginTop="@dimen/main_margin_half"
-    android:background="@color/white"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="0dp">
+    android:layout_marginTop="@dimen/main_margin_half">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +29,7 @@
             android:layout_marginStart="@dimen/main_margin_half"
             android:layout_marginTop="@dimen/main_margin_half"
             android:textColor="@color/title_color"
-            tools:text="Вид блюда" />
+            tools:text="Бургеры" />
 
         <TextView
             android:id="@+id/tvCategoriesDescription"
@@ -42,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_marginVertical="@dimen/main_margin_half"
-            tools:text="Описание" />
+            tools:text="Рецепты всех популярных видов бургеров" />
 
     </LinearLayout>
 
