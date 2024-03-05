@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">RecipeApp</string>
-    <string name="button_category">Category</string>
-    <string name="button_favourites">Favourites</string>
+    <string name="title_category">Category</string>
+    <string name="title_favourites">Favourites</string>
+    <string name="title_image" translatable="false">Title image</string>
+    <string name="category_image" translatable="false">Category image</string>
 </resources>
