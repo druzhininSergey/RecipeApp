@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/category_button_color"
-            android:text="@string/category" />
+            android:text="@string/title_category" />
 
         <Space
             android:layout_width="@dimen/space_between_categories_and_favourites"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/favorites_button_color"
-            android:text="@string/favourites"
+            android:text="@string/title_favourites"
             app:icon="@drawable/ic_heart_empty"
             app:iconGravity="textEnd"
             app:iconPadding="@dimen/main_text_padding" />
