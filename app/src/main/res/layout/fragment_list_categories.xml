@@ -23,8 +23,10 @@
                 android:src="@drawable/bcg_categories"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 style="@style/StyleTitle20"
@@ -34,7 +36,7 @@
                 android:layout_marginBottom="@dimen/main_margin"
                 android:background="@drawable/shape_rounded_containers_title"
                 android:padding="@dimen/main_text_padding"
-                android:text="@string/category"
+                android:text="@string/title_category"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,13 +46,13 @@
             android:id="@+id/rvCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_category"
             android:layout_marginHorizontal="@dimen/main_margin_half"
             android:layout_marginTop="@dimen/main_margin_half"
             android:background="@color/main_background_color"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            tools:itemCount="6" />
+            tools:itemCount="6"
+            tools:listitem="@layout/item_category" />
 
     </LinearLayout>
 
