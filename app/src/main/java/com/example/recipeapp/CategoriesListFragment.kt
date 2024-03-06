@@ -33,12 +33,12 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick() {
-            openRecipeByCategoryId()
+                openRecipeByCategoryId()
             }
         })
     }
 
-    fun openRecipeByCategoryId(){
+    fun openRecipeByCategoryId() {
         parentFragmentManager.commit {
             replace<RecipesListFragment>(R.id.mainContainer)
             setReorderingAllowed(true)

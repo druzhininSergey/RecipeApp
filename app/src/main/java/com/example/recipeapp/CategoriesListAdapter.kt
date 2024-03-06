@@ -13,15 +13,15 @@ import java.lang.Exception
 class CategoriesListAdapter(private val dataSet: List<Category>) :
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
-    interface OnItemClickListener{
-        fun onItemClick(){
+    interface OnItemClickListener {
+        fun onItemClick() {
 
         }
     }
 
     private var itemClickListener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
     }
 
