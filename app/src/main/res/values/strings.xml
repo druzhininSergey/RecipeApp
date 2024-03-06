@@ -4,4 +4,5 @@
     <string name="title_favourites">Favourites</string>
     <string name="title_image" translatable="false">Title image</string>
     <string name="category_image" translatable="false">Category image</string>
+    <string name="recipes_list" translatable="false">Recipes list</string>
 </resources>

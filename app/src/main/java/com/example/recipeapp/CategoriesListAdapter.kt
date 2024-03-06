@@ -13,6 +13,18 @@ import java.lang.Exception
 class CategoriesListAdapter(private val dataSet: List<Category>) :
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
+    interface OnItemClickListener{
+        fun onItemClick(){
+
+        }
+    }
+
+    private val itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        val itemClickListener = listener
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemCategoryBinding.bind(itemView)
         val ivCategory = binding.ivCategory
@@ -39,7 +51,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-
+        viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick() }
     }
 
     override fun getItemCount() = dataSet.size
