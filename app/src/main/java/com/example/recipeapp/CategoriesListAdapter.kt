@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.databinding.ItemCategoryBinding
 import java.io.InputStream
 import java.lang.Exception
@@ -14,8 +15,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick() {
-
+        fun onItemClick(categoryId: Int) {
         }
     }
 
@@ -51,7 +51,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-        viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick() }
+        viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick(categoryId = category.id) }
     }
 
     override fun getItemCount() = dataSet.size
