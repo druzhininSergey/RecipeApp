@@ -8,4 +8,5 @@
     <dimen name="category_image_height">130dp</dimen>
     <dimen name="main_corner_radius">8dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
+    <dimen name="recipes_image_height">100dp</dimen>
 </resources>
