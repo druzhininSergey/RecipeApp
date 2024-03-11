@@ -16,8 +16,10 @@
             android:layout_height="@dimen/title_image_height">
 
             <ImageView
+                android:id="@+id/ivRecipesTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/recipes_title_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +28,7 @@
                 tools:src="@drawable/bcg_categories" />
 
             <TextView
+                android:id="@+id/tvRecipesTitle"
                 style="@style/StyleTitle20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -33,21 +36,21 @@
                 android:layout_marginBottom="@dimen/main_margin"
                 android:background="@drawable/shape_rounded_containers_title"
                 android:padding="@dimen/main_text_padding"
-                tools:text="Burgers"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Burgers" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcRecipes"
+            android:id="@+id/rvRecipes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_background_color"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="1"
             tools:itemCount="8"
-            tools:listitem="@layout/item_recipes"/>
+            tools:listitem="@layout/item_recipes" />
 
     </LinearLayout>
 

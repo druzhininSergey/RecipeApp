@@ -16,13 +16,13 @@
             android:id="@+id/ivRecipes"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recipes_image_height"
+            android:contentDescription="@string/recipes_image"
             android:scaleType="centerCrop"
-            tools:background="@color/cardview_dark_background"
-            android:contentDescription="@string/recipes_image" />
+            tools:background="@color/cardview_dark_background" />
 
         <TextView
-            style="@style/StyleTitle14"
             android:id="@+id/tvRecipes"
+            style="@style/StyleTitle14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/main_margin_half"

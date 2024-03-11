@@ -6,4 +6,6 @@
     <string name="category_image" translatable="false">Category image</string>
     <string name="recipes_list" translatable="false">Recipes list</string>
     <string name="recipes_image" translatable="false">Recipes image</string>
+    <string name="recipe">Recipe</string>
+    <string name="recipes_title_image" translatable="false">Recipes title image</string>
 </resources>

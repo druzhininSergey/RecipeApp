@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recipeapp.databinding.ItemCategoryBinding
+import com.example.recipeapp.databinding.ItemRecipesBinding
 import java.io.InputStream
 import java.lang.Exception
 
-class CategoriesListAdapter(private val dataSet: List<Category>) :
-    RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+class RecipesListAdapter(private val dataSet: List<Recipe>) :
+    RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
-        fun onItemClick(categoryId: Int)
+        fun onItemClick(recipeId: Int)
     }
 
     private var itemClickListener: OnItemClickListener? = null
@@ -24,32 +24,29 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = ItemCategoryBinding.bind(itemView)
-        val ivCategory = binding.ivCategory
-        val tvCategory = binding.tvCategory
-        val tvCategoryDescription = binding.tvCategoriesDescription
+        private val binding = ItemRecipesBinding.bind(itemView)
+        val ivRecipe = binding.ivRecipes
+        val tvRecipe = binding.tvRecipes
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_category, viewGroup, false)
-
+            .inflate(R.layout.item_recipes, viewGroup, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val category = dataSet[position]
-        viewHolder.tvCategory.text = category.title
-        viewHolder.tvCategoryDescription.text = category.description
+        val recipe = dataSet[position]
+        viewHolder.tvRecipe.text = recipe.title
         try {
             val inputStream: InputStream? =
-                viewHolder.itemView.context?.assets?.open(category.imageUrl)
+                viewHolder.itemView.context?.assets?.open(recipe.imageUrl)
             val drawable = Drawable.createFromStream(inputStream, null)
-            viewHolder.ivCategory.setImageDrawable(drawable)
+            viewHolder.ivRecipe.setImageDrawable(drawable)
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-        viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick(category.id) }
+        viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick(recipe.id) }
     }
 
     override fun getItemCount() = dataSet.size
