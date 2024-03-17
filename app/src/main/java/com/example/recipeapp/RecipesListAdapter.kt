@@ -25,8 +25,8 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemRecipesBinding.bind(itemView)
-        val ivRecipe = binding.ivRecipes
-        val tvRecipe = binding.tvRecipes
+        val ivRecipe = binding.ivRecipe
+        val tvRecipe = binding.tvRecipe
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -38,6 +38,7 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val recipe = dataSet[position]
         viewHolder.tvRecipe.text = recipe.title
+        viewHolder.ivRecipe.contentDescription = R.string.recipe_image.toString() + "" + recipe.title
         try {
             val inputStream: InputStream? =
                 viewHolder.itemView.context?.assets?.open(recipe.imageUrl)

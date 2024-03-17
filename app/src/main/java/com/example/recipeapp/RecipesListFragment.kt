@@ -30,9 +30,11 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
-        categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
-        categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
+        arguments?.let {
+            categoryId = requireArguments().getInt(ARG_CATEGORY_ID)
+            categoryName = requireArguments().getString(ARG_CATEGORY_NAME)
+            categoryImageUrl = requireArguments().getString(ARG_CATEGORY_IMAGE_URL)
+        }
         loadImageFromAssets()
         binding.tvRecipesTitle.text = categoryName
         initRecycler()

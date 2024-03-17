@@ -40,6 +40,7 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val category = dataSet[position]
         viewHolder.tvCategory.text = category.title
+        viewHolder.ivCategory.contentDescription = R.string.category_image.toString() + "" + category.title
         viewHolder.tvCategoryDescription.text = category.description
         try {
             val inputStream: InputStream? =

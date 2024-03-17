@@ -1,5 +1,5 @@
 <resources>
     <string name="title_category">Категории</string>
     <string name="title_favourites">Избранное</string>
-    <string name="recipe">Рецепт</string>
+    <string name="title_recipe">Рецепт</string>
 </resources>
