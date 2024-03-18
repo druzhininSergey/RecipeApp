@@ -38,7 +38,8 @@ class RecipesListAdapter(private val dataSet: List<Recipe>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val recipe = dataSet[position]
         viewHolder.tvRecipe.text = recipe.title
-        viewHolder.ivRecipe.contentDescription = R.string.recipe_image.toString() + "" + recipe.title
+        viewHolder.ivRecipe.contentDescription =
+            viewHolder.itemView.context.getString(R.string.recipe_image) + " " + recipe.title
         try {
             val inputStream: InputStream? =
                 viewHolder.itemView.context?.assets?.open(recipe.imageUrl)

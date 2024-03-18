@@ -33,14 +33,14 @@ class CategoriesListAdapter(private val dataSet: List<Category>) :
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.item_category, viewGroup, false)
-
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val category = dataSet[position]
         viewHolder.tvCategory.text = category.title
-        viewHolder.ivCategory.contentDescription = R.string.category_image.toString() + "" + category.title
+        viewHolder.ivCategory.contentDescription =
+            viewHolder.itemView.context.getString(R.string.category_image) + " " + category.title
         viewHolder.tvCategoryDescription.text = category.description
         try {
             val inputStream: InputStream? =
