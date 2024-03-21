@@ -9,4 +9,6 @@
     <dimen name="main_corner_radius">8dp</dimen>
     <dimen name="card_elevation">0dp</dimen>
     <dimen name="recipes_image_height">100dp</dimen>
+    <dimen name="seek_bar_height">30dp</dimen>
+    <dimen name="main_padding_description">12dp</dimen>
 </resources>

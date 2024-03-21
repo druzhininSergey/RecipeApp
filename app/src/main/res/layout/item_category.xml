@@ -32,7 +32,7 @@
 
         <TextView
             android:id="@+id/tvCategoriesDescription"
-            style="@style/RecipeDescription"
+            style="@style/StyleRecipeDescription12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/main_margin_half"

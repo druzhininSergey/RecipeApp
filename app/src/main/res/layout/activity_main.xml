@@ -39,7 +39,7 @@
             android:text="@string/title_category" />
 
         <Space
-            android:layout_width="@dimen/space_between_categories_and_favourites"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent" />
 
         <Button

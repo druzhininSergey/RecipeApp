@@ -7,4 +7,6 @@
     <color name="main_background_color">#F4FAFF</color>
     <color name="title_color">#5F3678</color>
     <color name="description_text_color">#666666</color>
+    <color name="recipe_section_text_color">#422952</color>
+    <color name="portions_text_color">#626466</color>
 </resources>
