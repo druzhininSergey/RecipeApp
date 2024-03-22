@@ -40,6 +40,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/title_recipe" />
+
+            <ImageButton
+                android:id="@+id/ibHeart"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/button_to_add_in_favorites" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
