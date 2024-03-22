@@ -24,8 +24,24 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val ingredient = dataSet[position]
         viewHolder.ingredientName.text = ingredient.description
-        viewHolder.ingredientQuantity.text = ingredient.quantity + " " + ingredient.unitOfMeasure
+        viewHolder.ingredientQuantity.text = setIngredientQuantityText(ingredient)
     }
 
     override fun getItemCount() = dataSet.size
+
+    private fun setIngredientQuantityText(ingredient: Ingredient): String {
+        val ingredientQuantity = ingredient.quantity.toDouble() * quantity
+        val formattedQuantity = if (ingredientQuantity % 1 == 0.0) {
+            ingredientQuantity.toInt()
+        } else {
+            String.format("%.1f", ingredientQuantity)
+        }
+        return formattedQuantity.toString() + " " + ingredient.unitOfMeasure
+    }
+
+    private var quantity = 1
+
+    fun updateIngredients(progress: Int) {
+        quantity = progress
+    }
 }

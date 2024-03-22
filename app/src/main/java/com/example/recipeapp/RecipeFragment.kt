@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import java.io.InputStream
 
@@ -56,6 +57,18 @@ class RecipeFragment : Fragment() {
         val adapterMethod = recipe?.let { MethodAdapter(it.method) }
         val recyclerViewMethod = binding.rvMethod
         recyclerViewMethod.adapter = adapterMethod
+
+        binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                adapterIngredient?.updateIngredients(progress)
+                adapterIngredient?.notifyDataSetChanged()
+                binding.tvNumberOfPortions.text = progress.toString()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     private fun loadImageFromAssets(imageUrl: String) {
