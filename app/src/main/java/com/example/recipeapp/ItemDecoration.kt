@@ -1,30 +1,50 @@
 package com.example.recipeapp
 
-import android.content.Context
 import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
+import android.graphics.Paint
+import android.graphics.Rect
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 class ItemDecoration(
-    context: Context,
-    resId: Int
+    private val dividerHeight: Int,
+    private val dividerColor: Int,
 ) : RecyclerView.ItemDecoration() {
 
-    private val divider: Drawable? = ContextCompat.getDrawable(context, resId)
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        super.getItemOffsets(outRect, view, parent, state)
+        val position = parent.getChildAdapterPosition(view)
+        if (position < (parent.adapter?.itemCount ?: (0 - 1))) {
+            outRect.bottom = dividerHeight
+        }
+    }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDraw(c, parent, state)
+        val dividerPaint = Paint()
+        dividerPaint.color = dividerColor
+        val left = parent.paddingLeft
+        val right = parent.width - parent.paddingRight
 
-        val dividerTop = parent.context.resources.getDimensionPixelSize(R.dimen.main_margin_half)
-        val dividerBottom = parent.context.resources.getDimensionPixelSize(R.dimen.main_margin_half)
-
-        for (i in 0 until parent.childCount) {
-            if (i != parent.childCount - 1) {
-                divider?.setBounds(0, dividerTop, 0, dividerBottom)
-                divider?.draw(c)
-            }
+        for (i in 0 until parent.childCount - 1) {
+            val child = parent.getChildAt(i)
+            val params = child.layoutParams as RecyclerView.LayoutParams
+            val top = child.bottom + params.bottomMargin
+            val bottom = top + dividerHeight
+            c.drawRect(
+                left.toFloat(),
+                top.toFloat(),
+                right.toFloat(),
+                bottom.toFloat(),
+                dividerPaint
+            )
         }
     }
+
 
 }

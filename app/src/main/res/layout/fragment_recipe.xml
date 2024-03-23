@@ -40,6 +40,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@string/title_recipe" />
+
+            <ImageButton
+                android:id="@+id/ibHeart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/main_margin"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/button_to_add_in_favorites"
+                android:src="@drawable/ic_heart"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
@@ -96,7 +107,8 @@
             android:layout_marginHorizontal="@dimen/main_margin"
             android:background="@drawable/shape_rounded_container_recipe_description"
             android:paddingHorizontal="@dimen/main_padding_description"
-            android:paddingTop="@dimen/main_padding_description"
+            android:paddingTop="@dimen/main_small_padding_description"
+            android:paddingBottom="@dimen/main_margin_half"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="8"
             tools:listitem="@layout/item_ingredient" />
@@ -122,9 +134,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/main_margin"
-            android:layout_marginBottom="@dimen/main_margin_half"
             android:background="@drawable/shape_rounded_container_recipe_description"
-            android:padding="@dimen/main_padding_description"
+            android:paddingHorizontal="@dimen/main_padding_description"
+            android:paddingVertical="@dimen/main_small_padding_description"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="8"
             tools:listitem="@layout/item_method" />

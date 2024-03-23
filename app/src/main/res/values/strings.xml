@@ -13,4 +13,5 @@
     <string name="recipe_portions">Portions:</string>
     <string name="cooking_method">Cooking method</string>
     <string name="portion_quantity" translatable="false">1</string>
+    <string name="button_to_add_in_favorites" translatable="false">Button to add in favorites</string>
 </resources>
