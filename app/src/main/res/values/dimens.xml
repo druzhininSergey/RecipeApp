@@ -11,4 +11,6 @@
     <dimen name="recipes_image_height">100dp</dimen>
     <dimen name="seek_bar_height">30dp</dimen>
     <dimen name="main_padding_description">12dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="main_small_padding_description">4dp</dimen>
 </resources>

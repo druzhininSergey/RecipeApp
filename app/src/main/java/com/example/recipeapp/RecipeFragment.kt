@@ -1,5 +1,6 @@
 package com.example.recipeapp
 
+import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -36,9 +37,21 @@ class RecipeFragment : Fragment() {
         initUi()
         initRecycler()
 
+        val theme: Theme = view.context.theme
         binding.rvIngredients.addItemDecoration(
-            ItemDecoration(binding.rvIngredients.context, R.drawable.divider_line)
+            ItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.divider_height),
+                resources.getColor(R.color.main_background_color, theme)
+            )
         )
+
+        binding.rvMethod.addItemDecoration(
+            ItemDecoration(
+                resources.getDimensionPixelSize(R.dimen.divider_height),
+                resources.getColor(R.color.main_background_color, theme)
+            )
+        )
+
     }
 
     private fun initUi() {
