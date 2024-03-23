@@ -7,10 +7,9 @@
         <item name="cardCornerRadius">@dimen/main_corner_radius</item>
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
-
     </style>
 
-    <style name="RecipeDescription" parent="TextAppearance.AppCompat">
+    <style name="StyleRecipeDescription12" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/description_text_color</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:textSize">12sp</item>
@@ -35,6 +34,18 @@
         <item name="android:textAppearance">@style/StyleTitle14</item>
         <item name="android:paddingVertical">10dp</item>
         <item name="android:paddingHorizontal">0dp</item>
+    </style>
+
+    <style name="StyleRecipeDescription14" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:textColor">@color/description_text_color</item>
+    </style>
+
+    <style name="StylePortions16" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/portions_text_color</item>
+        <item name="fontFamily">@font/montserrat_semi_bold</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
 </resources>
