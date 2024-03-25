@@ -44,6 +44,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipes"
+            android:layout_marginTop="@dimen/main_margin_half"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_background_color"
