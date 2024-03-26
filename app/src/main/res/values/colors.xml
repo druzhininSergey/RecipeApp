@@ -9,4 +9,6 @@
     <color name="description_text_color">#666666</color>
     <color name="recipe_section_text_color">#422952</color>
     <color name="portions_text_color">#626466</color>
+    <color name="thumb_color">#525DC0</color>
+    <color name="progress_color">#A1A9F9</color>
 </resources>

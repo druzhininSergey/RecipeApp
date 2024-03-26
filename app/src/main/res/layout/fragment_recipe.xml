@@ -56,7 +56,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/main_margin"
+            android:layout_marginHorizontal="@dimen/main_margin"
+            android:layout_marginTop="@dimen/main_margin"
             android:orientation="vertical">
 
             <TextView
@@ -90,15 +91,19 @@
 
             </LinearLayout>
 
-            <SeekBar
-                android:id="@+id/sbPortions"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/seek_bar_height"
-                android:min="1"
-                android:max="5"
-                android:progress="1"/>
-
         </LinearLayout>
+
+        <SeekBar
+            android:id="@+id/sbPortions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/seek_bar_height"
+            android:layout_marginBottom="@dimen/main_margin"
+            android:max="5"
+            android:min="1"
+            android:progress="1"
+            android:progressDrawable="@drawable/shape_seekbar_progress"
+            android:thumb="@drawable/shape_seekbar_thumb" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvIngredients"
