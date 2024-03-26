@@ -48,7 +48,9 @@
                 android:layout_margin="@dimen/main_margin"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/button_to_add_in_favorites"
-                android:src="@drawable/ic_heart"
+                android:src="@drawable/ic_heart_empty_40"
+                android:foreground="?android:attr/selectableItemBackground"
+                tools:src="@drawable/ic_heart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,8 @@ class RecipeFragment : Fragment() {
     }
 
     private var recipe: Recipe? = null
+    private val theme: Theme? = view?.context?.theme
+    private var isFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +40,7 @@ class RecipeFragment : Fragment() {
         initUi()
         initRecycler()
 
-        val theme: Theme = view.context.theme
+
         binding.rvIngredients.addItemDecoration(
             ItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.divider_height),
@@ -60,6 +62,16 @@ class RecipeFragment : Fragment() {
             binding.tvTitleRecipe.text = it.title
             loadImageFromAssets(it.imageUrl)
         }
+
+        binding.ibHeart.setOnClickListener {
+            isFavorite = if (!isFavorite) {
+                binding.ibHeart.setImageResource(R.drawable.ic_heart)
+                true
+            } else {
+                binding.ibHeart.setImageResource(R.drawable.ic_heart_empty_40)
+                false
+            }
+        }
     }
 
     private fun initRecycler() {
@@ -79,7 +91,6 @@ class RecipeFragment : Fragment() {
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
     }
