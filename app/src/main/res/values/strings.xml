@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">RecipeApp</string>
     <string name="title_category">Category</string>
     <string name="title_favourites">Favourites</string>
-    <string name="title_image" translatable="false">Title image</string>
+    <string name="title_image_category" translatable="false">Title image category</string>
     <string name="category_image" translatable="false">Category image</string>
     <string name="recipes_list" translatable="false">Recipes list</string>
     <string name="recipe_image" translatable="false">Recipe image</string>
@@ -14,4 +14,6 @@
     <string name="cooking_method">Cooking method</string>
     <string name="portion_quantity" translatable="false">1</string>
     <string name="button_to_add_in_favorites" translatable="false">Button to add in favorites</string>
+    <string name="seek_bar_to_adjust_portions_quantity" translatable="false">Seek bar to adjust portions quantity</string>
+    <string name="recipe_title_image" translatable="false">Recipe title image</string>
 </resources>

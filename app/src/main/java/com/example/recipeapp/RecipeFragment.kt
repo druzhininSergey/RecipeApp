@@ -59,16 +59,26 @@ class RecipeFragment : Fragment() {
 
     private fun initUi() {
         recipe?.let {
-            binding.tvTitleRecipe.text = it.title
+            binding.tvTitleRecipe.apply {
+                text = it.title
+                contentDescription =
+                    it.title + " " + view?.context?.getString(R.string.recipe_title_image)
+            }
             loadImageFromAssets(it.imageUrl)
         }
 
         binding.ibHeart.setOnClickListener {
             isFavorite = if (!isFavorite) {
-                binding.ibHeart.setImageResource(R.drawable.ic_heart)
+                binding.ibHeart.apply {
+                    setImageResource(R.drawable.ic_heart)
+                    contentDescription = "Button to remove from favorites"
+                }
                 true
             } else {
-                binding.ibHeart.setImageResource(R.drawable.ic_heart_empty_40)
+                binding.ibHeart.apply {
+                    setImageResource(R.drawable.ic_heart_empty)
+                    contentDescription = "Button to add in favorites"
+                }
                 false
             }
         }
