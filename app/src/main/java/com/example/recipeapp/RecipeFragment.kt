@@ -63,12 +63,12 @@ class RecipeFragment : Fragment() {
         recipe?.let {
             binding.tvTitleRecipe.text = it.title
             loadImageFromAssets(it.imageUrl)
+            isFavorite = favorites.contains(it.id.toString())
+            updateFavoriteIcon()
         }
-        uploadFavoriteIcon()
     }
 
-    private fun uploadFavoriteIcon() {
-        isFavorite = favorites.contains(recipe?.id.toString())
+    private fun updateFavoriteIcon() {
         binding.ibHeart.setOnClickListener {
             isFavorite = if (!isFavorite) {
                 binding.ibHeart.setImageResource(R.drawable.ic_heart)
@@ -93,7 +93,7 @@ class RecipeFragment : Fragment() {
 
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(FAVORITES_PREFS_NAME, Context.MODE_PRIVATE)
-        val savedFavorites = sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, emptySet()) ?: mutableSetOf()
+        val savedFavorites= sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, emptySet()) ?: mutableSetOf()
         return HashSet(savedFavorites)
     }
 
