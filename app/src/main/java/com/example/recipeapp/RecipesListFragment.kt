@@ -37,7 +37,11 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
             categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
         }
         loadImageFromAssets()
-        binding.tvRecipesTitle.text = categoryName
+        binding.tvRecipesTitle.apply {
+            text = categoryName
+            contentDescription =
+                view.context.getString(R.string.recipes_title_image) + " " + categoryName
+        }
         initRecycler()
     }
 

@@ -21,7 +21,7 @@
                 android:id="@+id/ivTitleRecipe"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/title_image_height"
-                android:contentDescription="@string/title_image"
+                android:contentDescription="@string/recipe_title_image"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +43,15 @@
 
             <ImageButton
                 android:id="@+id/ibHeart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/button_heart_sides"
+                android:layout_height="@dimen/button_heart_sides"
+                android:scaleType="fitCenter"
                 android:layout_margin="@dimen/main_margin"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/button_to_add_in_favorites"
-                android:src="@drawable/ic_heart"
+                android:src="@drawable/ic_heart_empty"
+                android:foreground="?android:attr/selectableItemBackground"
+                tools:src="@drawable/ic_heart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -98,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/seek_bar_height"
             android:layout_marginBottom="@dimen/main_margin"
+            android:contentDescription="@string/seek_bar_to_adjust_portions_quantity"
             android:max="5"
             android:min="1"
             android:progress="1"
