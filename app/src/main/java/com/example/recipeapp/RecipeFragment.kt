@@ -61,7 +61,11 @@ class RecipeFragment : Fragment() {
 
     private fun initUi() {
         recipe?.let {
-            binding.tvTitleRecipe.text = it.title
+            binding.tvTitleRecipe.apply {
+                text = it.title
+                contentDescription =
+                    it.title + " " + view?.context?.getString(R.string.recipe_title_image)
+            }
             loadImageFromAssets(it.imageUrl)
             isFavorite = favorites.contains(it.id.toString())
             updateFavoriteIcon()
@@ -71,12 +75,16 @@ class RecipeFragment : Fragment() {
     private fun updateFavoriteIcon() {
         binding.ibHeart.setOnClickListener {
             isFavorite = if (!isFavorite) {
-                binding.ibHeart.setImageResource(R.drawable.ic_heart)
-                recipe?.id?.let { favorites.add(it.toString()) }
+                binding.ibHeart.apply {
+                    setImageResource(R.drawable.ic_heart)
+                    contentDescription = "Button to remove from favorites"
+                }
                 true
             } else {
-                binding.ibHeart.setImageResource(R.drawable.ic_heart_empty_40)
-                favorites.remove(recipe?.id.toString())
+                binding.ibHeart.apply {
+                    setImageResource(R.drawable.ic_heart_empty)
+                    contentDescription = "Button to add in favorites"
+                }
                 false
             }
             saveFavorites(favorites)
