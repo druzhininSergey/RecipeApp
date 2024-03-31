@@ -106,7 +106,7 @@ class RecipeFragment : Fragment() {
 
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(FAVORITES_PREFS_NAME, Context.MODE_PRIVATE)
-        return sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf()
+        return HashSet(sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf())
     }
 
     private fun initRecycler() {
