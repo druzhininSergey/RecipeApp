@@ -36,13 +36,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         val adapter = RecipesListAdapter(STUB.getRecipesByIds(favoritesIds))
         val recyclerView = binging.rvFavorites
         recyclerView.adapter = adapter
-        if (favoritesIds.isEmpty()){
-            binging.tvNoFavorites.isVisible = true
-            binging.rvFavorites.isVisible = false
-        } else{
-            binging.tvNoFavorites.isVisible = false
-            binging.rvFavorites.isVisible = true
-        }
+        binging.tvNoFavorites.isVisible = favoritesIds.isEmpty()
+        binging.rvFavorites.isVisible = favoritesIds.isNotEmpty()
+
         adapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
@@ -61,6 +57,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private fun getFavorites(): MutableSet<String> {
         val sharedPrefs = activity?.getSharedPreferences(FAVORITES_PREFS_NAME, Context.MODE_PRIVATE)
-        return HashSet(sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf())
+        return HashSet(
+            sharedPrefs?.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf()
+        )
     }
 }

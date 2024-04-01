@@ -5,6 +5,6 @@
     <string name="title_ingredients">Ингредиенты</string>
     <string name="recipe_portions">Порции:</string>
     <string name="cooking_method">Способ приготовления</string>
-    <string name="favorites">Избранное</string>
+    <string name="title_favorites">Избранное</string>
     <string name="no_favorites_added">Вы еще не добавили ни одного рецепта в избранное</string>
 </resources>

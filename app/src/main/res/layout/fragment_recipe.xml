@@ -45,15 +45,15 @@
                 android:id="@+id/ibHeart"
                 android:layout_width="@dimen/button_heart_sides"
                 android:layout_height="@dimen/button_heart_sides"
-                android:scaleType="fitCenter"
                 android:layout_margin="@dimen/main_margin"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/button_to_add_in_favorites"
-                android:src="@drawable/ic_heart_empty"
                 android:foreground="?android:attr/selectableItemBackground"
-                tools:src="@drawable/ic_heart"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_heart_empty"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_heart" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout

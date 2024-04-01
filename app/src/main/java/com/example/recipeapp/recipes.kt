@@ -270,13 +270,8 @@ object STUB {
     fun getRecipeById(recipeId: Int): Recipe =
         burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
-    fun getRecipesByIds(recipesIds: MutableSet<String>) : List<Recipe>{
-        val recipesList = mutableListOf<Recipe>()
-        for (i in recipesIds){
-            burgerRecipes.find { it.id == i.toInt() }?.let { recipesList.add(it) }
-        }
-        return recipesList
-    }
+    fun getRecipesByIds(recipesIds: MutableSet<String>) =
+        burgerRecipes.filter { it.id.toString() in recipesIds }
 
     fun getCategories(): List<Category> = categories
 }

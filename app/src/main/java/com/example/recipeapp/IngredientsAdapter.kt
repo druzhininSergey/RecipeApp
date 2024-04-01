@@ -34,7 +34,9 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
         val ingredientQuantity = ingredient.quantity.toBigDecimal().times(quantity.toBigDecimal())
         val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
-                BigDecimal.ZERO) == 0) {
+                BigDecimal.ZERO
+            ) == 0
+        ) {
             ingredientQuantity.intValueExact()
         } else {
             ingredientQuantity.setScale(1, RoundingMode.HALF_UP)

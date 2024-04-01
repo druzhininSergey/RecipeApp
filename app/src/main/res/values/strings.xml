@@ -16,6 +16,7 @@
     <string name="button_to_add_in_favorites" translatable="false">Button to add in favorites</string>
     <string name="seek_bar_to_adjust_portions_quantity" translatable="false">Seek bar to adjust portions quantity</string>
     <string name="recipe_title_image" translatable="false">Recipe title image</string>
-    <string name="favorites">Favorites</string>
+    <string name="title_favorites">Favorites</string>
     <string name="no_favorites_added">You have not added any recipes to your favorites yet</string>
+    <string name="title_image_favorites" translatable="false">Title image favorites</string>
 </resources>
