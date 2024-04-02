@@ -270,6 +270,8 @@ object STUB {
     fun getRecipeById(recipeId: Int): Recipe =
         burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
+    fun getRecipesByIds(recipesIds: MutableSet<String>) =
+        burgerRecipes.filter { it.id.toString() in recipesIds }
 
     fun getCategories(): List<Category> = categories
 }

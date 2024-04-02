@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/main_margin_half"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:layout_marginVertical="@dimen/main_margin_half">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvMethod"

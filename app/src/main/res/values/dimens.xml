@@ -14,4 +14,6 @@
     <dimen name="divider_height">1dp</dimen>
     <dimen name="main_small_padding_description">4dp</dimen>
     <dimen name="button_heart_sides">40dp</dimen>
+    <dimen name="no_favorites_text_top_margin">202dp</dimen>
+    <dimen name="no_favorites_added_text_size">16sp</dimen>
 </resources>
