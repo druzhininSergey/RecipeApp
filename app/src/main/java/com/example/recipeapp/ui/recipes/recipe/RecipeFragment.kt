@@ -13,9 +13,9 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.model.ARG_RECIPE
-import com.example.recipeapp.model.FAVORITES_PREFS_NAME
-import com.example.recipeapp.model.FAVORITE_PREFS_KEY
+import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.FAVORITES_PREFS_NAME
+import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.ItemDecoration
 import java.io.InputStream

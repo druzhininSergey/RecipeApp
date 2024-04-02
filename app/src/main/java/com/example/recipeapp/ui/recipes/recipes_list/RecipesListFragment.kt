@@ -13,10 +13,10 @@ import androidx.fragment.app.replace
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 import com.example.recipeapp.data.STUB
-import com.example.recipeapp.model.ARG_CATEGORY_ID
-import com.example.recipeapp.model.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.model.ARG_CATEGORY_NAME
-import com.example.recipeapp.model.ARG_RECIPE
+import com.example.recipeapp.data.ARG_CATEGORY_ID
+import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
+import com.example.recipeapp.data.ARG_CATEGORY_NAME
+import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import java.io.InputStream
 

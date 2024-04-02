@@ -10,9 +10,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import com.example.recipeapp.model.ARG_RECIPE
-import com.example.recipeapp.model.FAVORITES_PREFS_NAME
-import com.example.recipeapp.model.FAVORITE_PREFS_KEY
+import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.FAVORITES_PREFS_NAME
+import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.R
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import com.example.recipeapp.ui.recipes.recipes_list.RecipesListAdapter
