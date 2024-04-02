@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.content.Context
 import android.content.res.Resources.Theme
@@ -11,7 +11,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
+import com.example.recipeapp.model.ARG_RECIPE
+import com.example.recipeapp.model.FAVORITES_PREFS_NAME
+import com.example.recipeapp.model.FAVORITE_PREFS_KEY
+import com.example.recipeapp.model.Recipe
+import com.example.recipeapp.ui.ItemDecoration
 import java.io.InputStream
 
 class RecipeFragment : Fragment() {

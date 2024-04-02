@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui
 
 import android.graphics.Canvas
 import android.graphics.Paint
