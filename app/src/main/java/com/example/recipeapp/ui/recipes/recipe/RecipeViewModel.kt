@@ -1,20 +1,14 @@
 package com.example.recipeapp.ui.recipes.recipe
 
 import androidx.lifecycle.ViewModel
+import com.example.recipeapp.model.Recipe
 
 class RecipeViewModel : ViewModel() {
 
     data class RecipeState(
-        var title: String? = null,
-        var ingredients: List<IngredientState>? = null,
-        var method: List<String>? = null,
-        var imageUrl: String? = null,
-    )
-
-    data class IngredientState(
-        var quantity: String? = null,
-        var unitOfMeasure: String? = null,
-        var description: String? = null,
+        var recipe: Recipe? = null,
+        var servings: Int = 1,
+        var isFavorites: Boolean = false,
     )
 
 }
