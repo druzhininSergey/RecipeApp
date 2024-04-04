@@ -51,7 +51,6 @@ class RecipeFragment : Fragment() {
         initUi()
         initRecycler()
 
-
         binding.rvIngredients.addItemDecoration(
             ItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.divider_height),
