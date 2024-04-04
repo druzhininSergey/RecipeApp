@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.data.ARG_RECIPE
+import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.model.Recipe
@@ -44,9 +45,7 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            recipe = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                it.getParcelable(ARG_RECIPE, Recipe::class.java)
-            } else it.getParcelable(ARG_RECIPE)
+            recipeViewModel.loadRecipe(it.getInt(ARG_RECIPE_ID))
         }
         initUi()
         initRecycler()
