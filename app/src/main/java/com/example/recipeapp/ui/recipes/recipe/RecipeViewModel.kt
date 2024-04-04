@@ -10,7 +10,7 @@ import com.example.recipeapp.model.Recipe
 class RecipeViewModel : ViewModel() {
 
     private var _recipeState = MutableLiveData<RecipeState>()
-    val recipeState: LiveData<RecipeState> get() = _recipeState
+    val recipeState: LiveData<RecipeState> = _recipeState
 
     init {
         Log.i("!!!", "Создан объект RecipeViewModel")
