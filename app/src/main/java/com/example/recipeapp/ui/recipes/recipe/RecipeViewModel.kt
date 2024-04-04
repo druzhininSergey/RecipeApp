@@ -21,6 +21,7 @@ class RecipeViewModel : ViewModel() {
         var recipe: Recipe? = null,
         var servings: Int = MIN_RECIPE_SERVINGS,
         var isFavorites: Boolean = false,
+        var imageUrl: String? = null,
     )
 
 }
