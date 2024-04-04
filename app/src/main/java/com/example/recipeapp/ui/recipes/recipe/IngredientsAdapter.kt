@@ -1,10 +1,12 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui.recipes.recipe
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ItemIngredientBinding
+import com.example.recipeapp.model.Ingredient
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -31,8 +33,10 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
 
     override fun getItemCount() = dataSet.size
 
+    private var servings = 1
+
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
-        val ingredientQuantity = ingredient.quantity.toBigDecimal().times(quantity.toBigDecimal())
+        val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
         val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
                 BigDecimal.ZERO
             ) == 0
@@ -44,9 +48,7 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
         return formattedQuantity.toString() + " " + ingredient.unitOfMeasure
     }
 
-    private var quantity = 1
-
     fun updateIngredients(progress: Int) {
-        quantity = progress
+        servings = progress
     }
 }

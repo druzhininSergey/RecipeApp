@@ -1,11 +1,14 @@
-package com.example.recipeapp
+package com.example.recipeapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import com.example.recipeapp.ui.category.CategoriesListFragment
+import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
+import com.example.recipeapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
