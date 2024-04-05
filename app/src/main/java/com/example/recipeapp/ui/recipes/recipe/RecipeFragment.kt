@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.data.ARG_RECIPE
@@ -65,10 +64,9 @@ class RecipeFragment : Fragment() {
             )
         )
 
-        val observer = Observer<RecipeViewModel.RecipeState> {
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) {
             Log.i("!!!", it.isFavorites.toString())
         }
-        recipeViewModel.recipeState.observe(viewLifecycleOwner, observer)
 
     }
 
