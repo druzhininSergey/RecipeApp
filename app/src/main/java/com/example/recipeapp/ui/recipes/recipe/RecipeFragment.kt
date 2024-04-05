@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.data.ARG_RECIPE
@@ -50,7 +49,6 @@ class RecipeFragment : Fragment() {
         initUi()
         initRecycler()
 
-
         binding.rvIngredients.addItemDecoration(
             ItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.divider_height),
@@ -65,10 +63,9 @@ class RecipeFragment : Fragment() {
             )
         )
 
-        val observer = Observer<RecipeViewModel.RecipeState> {
-            Log.println(Log.INFO, "!!!", recipeViewModel.recipeState.value?.isFavorites.toString())
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) {
+            Log.i("!!!", it.isFavorites.toString())
         }
-        recipeViewModel.recipeState.observe(viewLifecycleOwner, observer)
 
     }
 
