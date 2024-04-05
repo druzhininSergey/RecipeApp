@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.fragment.app.activityViewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.data.ARG_RECIPE
@@ -25,6 +26,8 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
+
+    private val recipeViewModel: RecipeViewModel by activityViewModels()
 
     private var recipe: Recipe? = null
     private val theme: Theme? = view?.context?.theme
@@ -47,7 +50,6 @@ class RecipeFragment : Fragment() {
         initUi()
         initRecycler()
 
-
         binding.rvIngredients.addItemDecoration(
             ItemDecoration(
                 resources.getDimensionPixelSize(R.dimen.divider_height),
@@ -61,6 +63,10 @@ class RecipeFragment : Fragment() {
                 resources.getColor(R.color.main_background_color, theme)
             )
         )
+
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) {
+            Log.i("!!!", it.isFavorites.toString())
+        }
 
     }
 
