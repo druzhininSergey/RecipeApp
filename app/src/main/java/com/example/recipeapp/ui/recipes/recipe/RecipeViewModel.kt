@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
+import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
@@ -30,8 +31,13 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int){
 //        TODO("load from network")
-        _recipeState.value?.recipe?.id = recipeId
-        _recipeState.value?.recipe?.
+        val recipe = STUB.getRecipeById(recipeId)
+        val isFavorite = getFavorites().contains(recipeId.toString())
+        _recipeState.value = RecipeState(
+            recipe = recipe,
+            isFavorites = isFavorite,
+            imageUrl = recipe.imageUrl
+        )
     }
 
     private fun getFavorites(): MutableSet<String> {
