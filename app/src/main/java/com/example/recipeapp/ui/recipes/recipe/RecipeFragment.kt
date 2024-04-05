@@ -3,7 +3,6 @@ package com.example.recipeapp.ui.recipes.recipe
 import android.content.Context
 import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +13,6 @@ import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.data.ARG_RECIPE
 import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
@@ -63,56 +61,39 @@ class RecipeFragment : Fragment() {
             )
         )
 
-        recipeViewModel.recipeState.observe(viewLifecycleOwner) {
-            Log.i("!!!", it.isFavorites.toString())
-        }
-
     }
 
     private fun initUi() {
-        favorites = getFavorites()
-        recipe?.let {
-            binding.tvTitleRecipe.apply {
-                text = recipe?.title
-                contentDescription =
-                    it.title + " " + view?.context?.getString(R.string.recipe_title_image)
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) { state ->
+            state.recipe?.let {
+                binding.tvTitleRecipe.apply {
+                    text = state.recipe?.title
+                    contentDescription =
+                        state.recipe?.title + " " + view?.context?.getString(R.string.recipe_title_image)
+                }
             }
-            loadImageFromAssets(it.imageUrl)
+            loadImageFromAssets(state.imageUrl)
             updateFavoriteIcon()
+            Log.i("!!!", state.isFavorites.toString())
         }
     }
 
     private fun updateFavoriteIcon() {
-        favorites = getFavorites()
-        val recipeId = recipe?.id.toString()
-        if (favorites.contains(recipeId)) {
-            binding.ibHeart.setImageResource(R.drawable.ic_heart)
-        } else binding.ibHeart.setImageResource(R.drawable.ic_heart_empty)
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) { state ->
+            state.recipe.let {
+                this.recipe = it
+                favorites = getFavorites()
+                val recipeId = recipe?.id.toString()
+                if (favorites.contains(recipeId)) {
+                    binding.ibHeart.setImageResource(R.drawable.ic_heart)
+                } else binding.ibHeart.setImageResource(R.drawable.ic_heart_empty)
 
-        binding.ibHeart.setOnClickListener {
-            if (!favorites.contains(recipeId)) {
-                binding.ibHeart.apply {
-                    setImageResource(R.drawable.ic_heart)
-                    contentDescription = "Button to remove from favorites"
-                    favorites.add(recipeId)
-                }
-            } else {
-                binding.ibHeart.apply {
-                    setImageResource(R.drawable.ic_heart_empty)
-                    contentDescription = "Button to add in favorites"
-                    favorites.remove(recipeId)
+                binding.ibHeart.setOnClickListener {
+                    recipeViewModel.onFavoritesClicked(binding)
                 }
             }
-            saveFavorites(favorites)
         }
-    }
 
-    private fun saveFavorites(idList: Set<String>) {
-        val sharedPrefs = activity?.getSharedPreferences(FAVORITES_PREFS_NAME, Context.MODE_PRIVATE)
-        with(sharedPrefs?.edit()) {
-            this?.putStringSet(FAVORITE_PREFS_KEY, idList)
-            this?.apply()
-        }
     }
 
     private fun getFavorites(): MutableSet<String> {
@@ -123,29 +104,34 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        val adapterIngredient = recipe?.let { IngredientsAdapter(it.ingredients) }
-        val recyclerViewIngredient = binding.rvIngredients
-        recyclerViewIngredient.adapter = adapterIngredient
+        recipeViewModel.recipeState.observe(viewLifecycleOwner) { state ->
+            val recipe = state.recipe
+            val adapterIngredient = recipe?.let { IngredientsAdapter(it.ingredients) }
+            binding.rvIngredients.adapter = adapterIngredient
 
-        val adapterMethod = recipe?.let { MethodAdapter(it.method) }
-        val recyclerViewMethod = binding.rvMethod
-        recyclerViewMethod.adapter = adapterMethod
+            val adapterMethod = recipe?.let { MethodAdapter(it.method) }
+            binding.rvMethod.adapter = adapterMethod
 
-        binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                adapterIngredient?.updateIngredients(progress)
-                adapterIngredient?.notifyDataSetChanged()
-                binding.tvNumberOfPortions.text = progress.toString()
-            }
+            binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
+                    adapterIngredient?.updateIngredients(progress)
+                    adapterIngredient?.notifyDataSetChanged()
+                    binding.tvNumberOfPortions.text = progress.toString()
+                }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+            })
+        }
     }
 
-    private fun loadImageFromAssets(imageUrl: String) {
+    private fun loadImageFromAssets(imageUrl: String?) {
         try {
-            val inputStream: InputStream? = view?.context?.assets?.open(imageUrl)
+            val inputStream: InputStream? = imageUrl?.let { view?.context?.assets?.open(it) }
             val drawable = Drawable.createFromStream(inputStream, null)
             binding.ivTitleRecipe.setImageDrawable(drawable)
         } catch (e: Exception) {
