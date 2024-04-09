@@ -2,6 +2,7 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.app.Application
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -13,55 +14,52 @@ import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.model.Recipe
+import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var _recipeState = MutableLiveData<RecipeState>()
     val recipeState: LiveData<RecipeState> = _recipeState
 
-    init {
-        Log.i("!!!", "Создан объект RecipeViewModel")
-        _recipeState.value = RecipeState(isFavorites = false)
-    }
-
     data class RecipeState(
         var recipe: Recipe? = null,
         var servings: Int = MIN_RECIPE_SERVINGS,
         var isFavorites: Boolean = false,
-        var imageUrl: String? = null,
+        var recipeImage: Drawable? = null
     )
 
     fun loadRecipe(recipeId: Int) {
 //        TODO("load from network")
         val recipe = STUB.getRecipeById(recipeId)
         val isFavorite = getFavorites().contains(recipeId.toString())
+        val recipeImage: Drawable? = try {
+            val inputStream: InputStream? =
+                _recipeState.value?.recipe?.imageUrl?.let {
+                    getApplication<Application>().assets?.open(it)
+
+                }
+            Drawable.createFromStream(inputStream, null)
+        } catch (e: Exception) {
+            Log.e("assets", e.stackTraceToString())
+            null
+        }
         _recipeState.value = RecipeState(
             recipe = recipe,
             isFavorites = isFavorite,
-            imageUrl = recipe.imageUrl
+            recipeImage = recipeImage
         )
     }
 
-    fun onFavoritesClicked(binding: FragmentRecipeBinding) {
+    fun onFavoritesClicked(): Boolean {
         val favorites = getFavorites()
         val recipeId = _recipeState.value?.recipe?.id.toString()
         val isFavorite = favorites.contains(recipeId)
 
-        if (!isFavorite) {
-            binding.ibHeart.apply {
-                setImageResource(R.drawable.ic_heart)
-                contentDescription = "Button to remove from favorites"
-            }
-            favorites.add(recipeId)
-        } else {
-            binding.ibHeart.apply {
-                setImageResource(R.drawable.ic_heart_empty)
-                contentDescription = "Button to add in favorites"
-            }
-            favorites.remove(recipeId)
-        }
+        if (!isFavorite) favorites.add(recipeId)
+        else favorites.remove(recipeId)
         saveFavorites(favorites)
         _recipeState.value = _recipeState.value?.copy(isFavorites = !isFavorite)
+        return isFavorite
     }
 
     private fun getFavorites(): MutableSet<String> {

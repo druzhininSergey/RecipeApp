@@ -71,8 +71,8 @@ class RecipeFragment : Fragment() {
                     contentDescription =
                         state.recipe?.title + " " + view?.context?.getString(R.string.recipe_title_image)
                 }
+                binding.ivTitleRecipe.setImageDrawable(state.recipeImage)
             }
-            loadImageFromAssets(state.imageUrl)
             updateFavoriteIcon()
             Log.i("!!!", state.isFavorites.toString())
         }
@@ -89,7 +89,21 @@ class RecipeFragment : Fragment() {
                 } else binding.ibHeart.setImageResource(R.drawable.ic_heart_empty)
 
                 binding.ibHeart.setOnClickListener {
-                    recipeViewModel.onFavoritesClicked(binding)
+                    val isFavorite = recipeViewModel.onFavoritesClicked()
+
+                    if (!isFavorite) {
+                        binding.ibHeart.apply {
+                            setImageResource(R.drawable.ic_heart)
+                            contentDescription =
+                                view?.context?.getString(R.string.remove_from_favorites_btn)
+                        }
+                    } else {
+                        binding.ibHeart.apply {
+                            setImageResource(R.drawable.ic_heart_empty)
+                            contentDescription =
+                                view?.context?.getString(R.string.add_in_favorites_btn)
+                        }
+                    }
                 }
             }
         }
@@ -126,16 +140,6 @@ class RecipeFragment : Fragment() {
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
-        }
-    }
-
-    private fun loadImageFromAssets(imageUrl: String?) {
-        try {
-            val inputStream: InputStream? = imageUrl?.let { view?.context?.assets?.open(it) }
-            val drawable = Drawable.createFromStream(inputStream, null)
-            binding.ivTitleRecipe.setImageDrawable(drawable)
-        } catch (e: Exception) {
-            Log.e("assets", e.stackTraceToString())
         }
     }
 }
