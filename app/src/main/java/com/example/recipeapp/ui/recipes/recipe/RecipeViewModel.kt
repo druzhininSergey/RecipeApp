@@ -7,12 +7,10 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.recipeapp.R
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.STUB
-import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
@@ -32,25 +30,21 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 //        TODO("load from network")
         val recipe = STUB.getRecipeById(recipeId)
         val isFavorite = getFavorites().contains(recipeId.toString())
-        val recipeImage: Drawable? = try {
-            val inputStream: InputStream? =
-                _recipeState.value?.recipe?.imageUrl?.let {
-                    getApplication<Application>().assets?.open(it)
-
-                }
-            Drawable.createFromStream(inputStream, null)
+        var titleImage: Drawable? = null
+        try {
+            val inputStream: InputStream? = getApplication<Application>().assets?.open(recipe.imageUrl)
+            titleImage = Drawable.createFromStream(inputStream, null)
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
-            null
         }
         _recipeState.value = RecipeState(
             recipe = recipe,
             isFavorites = isFavorite,
-            recipeImage = recipeImage
+            recipeImage = titleImage
         )
     }
 
-    fun onFavoritesClicked(): Boolean {
+    fun onFavoritesClicked() {
         val favorites = getFavorites()
         val recipeId = _recipeState.value?.recipe?.id.toString()
         val isFavorite = favorites.contains(recipeId)
@@ -58,8 +52,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         if (!isFavorite) favorites.add(recipeId)
         else favorites.remove(recipeId)
         saveFavorites(favorites)
+
         _recipeState.value = _recipeState.value?.copy(isFavorites = !isFavorite)
-        return isFavorite
     }
 
     private fun getFavorites(): MutableSet<String> {

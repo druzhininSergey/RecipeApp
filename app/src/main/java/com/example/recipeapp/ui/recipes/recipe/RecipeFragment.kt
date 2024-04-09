@@ -2,7 +2,6 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.content.Context
 import android.content.res.Resources.Theme
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,7 +17,6 @@ import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.model.Recipe
 import com.example.recipeapp.ui.ItemDecoration
-import java.io.InputStream
 
 class RecipeFragment : Fragment() {
 
@@ -89,9 +87,9 @@ class RecipeFragment : Fragment() {
                 } else binding.ibHeart.setImageResource(R.drawable.ic_heart_empty)
 
                 binding.ibHeart.setOnClickListener {
-                    val isFavorite = recipeViewModel.onFavoritesClicked()
+                    recipeViewModel.onFavoritesClicked()
 
-                    if (!isFavorite) {
+                    if (!state.isFavorites) {
                         binding.ibHeart.apply {
                             setImageResource(R.drawable.ic_heart)
                             contentDescription =
