@@ -22,7 +22,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     data class RecipeState(
         var recipe: Recipe? = null,
         var servings: Int = MIN_RECIPE_SERVINGS,
-        var isFavorites: Boolean = false,
+        var isFavorite: Boolean = false,
         var recipeImage: Drawable? = null
     )
 
@@ -39,7 +39,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         }
         _recipeState.value = RecipeState(
             recipe = recipe,
-            isFavorites = isFavorite,
+            isFavorite = isFavorite,
             recipeImage = titleImage
         )
     }
@@ -53,7 +53,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         else favorites.remove(recipeId)
         saveFavorites(favorites)
 
-        _recipeState.value = _recipeState.value?.copy(isFavorites = !isFavorite)
+        _recipeState.value = _recipeState.value?.copy(isFavorite = !isFavorite)
     }
 
     private fun getFavorites(): MutableSet<String> {
