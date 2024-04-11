@@ -32,7 +32,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         val isFavorite = getFavorites().contains(recipeId.toString())
         var titleImage: Drawable? = null
         try {
-            val inputStream: InputStream? = getApplication<Application>().assets?.open(recipe.imageUrl)
+            val inputStream: InputStream? =
+                getApplication<Application>().assets?.open(recipe.imageUrl)
             titleImage = Drawable.createFromStream(inputStream, null)
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
@@ -75,5 +76,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             this?.putStringSet(FAVORITE_PREFS_KEY, idList)
             this?.apply()
         }
+    }
+
+    fun onChangeServings(servings: Int) {
+        _recipeState.value = _recipeState.value?.copy(servings = servings)
+        Log.i("servings ViewModel", "servings: ${recipeState.value?.servings}")
     }
 }
