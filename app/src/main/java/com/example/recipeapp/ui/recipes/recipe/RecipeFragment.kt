@@ -98,6 +98,8 @@ class RecipeFragment : Fragment() {
 
         val adapterMethod = state.recipe?.method?.let { MethodAdapter(it) }
         binding.rvMethod.adapter = adapterMethod
+        adapterIngredient?.updateIngredients(state.servings)
+
 
         binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -106,8 +108,7 @@ class RecipeFragment : Fragment() {
                 fromUser: Boolean
             ) {
                 recipeViewModel.onChangeServings(progress)
-                adapterIngredient?.updateIngredients(state.servings)
-                binding.tvNumberOfPortions.text = state.servings.toString()
+                binding.tvNumberOfPortions.text = progress.toString()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
