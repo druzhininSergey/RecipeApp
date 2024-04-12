@@ -80,6 +80,5 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun onChangeServings(servings: Int) {
         _recipeState.value = _recipeState.value?.copy(servings = servings)
-        Log.i("servings ViewModel", "servings: ${recipeState.value?.servings}")
     }
 }

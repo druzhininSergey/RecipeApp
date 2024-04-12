@@ -1,6 +1,5 @@
 package com.example.recipeapp.ui.recipes.recipe
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,6 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
 
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
         val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
-        Log.i("!!!!", "${ingredient.quantity}, $servings")
         val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
                 BigDecimal.ZERO
             ) == 0
@@ -54,6 +52,5 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
     fun updateIngredients(progress: Int) {
         servings = progress
         notifyDataSetChanged()
-        Log.i("servings Adapter", "servings: $servings")
     }
 }
