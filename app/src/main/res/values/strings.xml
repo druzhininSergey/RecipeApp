@@ -19,4 +19,6 @@
     <string name="title_favorites">Favorites</string>
     <string name="no_favorites_added">You have not added any recipes to your favorites yet</string>
     <string name="title_image_favorites" translatable="false">Title image favorites</string>
+    <string name="remove_from_favorites_btn">Button to remove from favorites</string>
+    <string name="add_in_favorites_btn">Button to add in favorites</string>
 </resources>

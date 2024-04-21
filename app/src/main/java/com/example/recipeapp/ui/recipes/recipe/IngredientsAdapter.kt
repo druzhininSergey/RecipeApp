@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
+import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.databinding.ItemIngredientBinding
 import com.example.recipeapp.model.Ingredient
 import java.math.BigDecimal
@@ -33,7 +34,7 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
 
     override fun getItemCount() = dataSet.size
 
-    private var servings = 1
+    private var servings = MIN_RECIPE_SERVINGS
 
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
         val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
@@ -50,5 +51,6 @@ class IngredientsAdapter(private val dataSet: List<Ingredient>) :
 
     fun updateIngredients(progress: Int) {
         servings = progress
+        notifyDataSetChanged()
     }
 }

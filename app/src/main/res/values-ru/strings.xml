@@ -7,4 +7,6 @@
     <string name="cooking_method">Способ приготовления</string>
     <string name="title_favorites">Избранное</string>
     <string name="no_favorites_added">Вы еще не добавили ни одного рецепта в избранное</string>
+    <string name="remove_from_favorites_btn">Кнопка для удаления из избранного</string>
+    <string name="add_in_favorites_btn">Кнопка для добавления в избранное</string>
 </resources>
