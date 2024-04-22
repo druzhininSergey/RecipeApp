@@ -100,18 +100,20 @@ class RecipeFragment : Fragment() {
         }
         ingredientsAdapter.updateIngredients(state.servings)
 
-        binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar?,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                recipeViewModel.onChangeServings(progress)
-                binding.tvNumberOfPortions.text = progress.toString()
-            }
+        val portionSeekBarListener = PortionSeekBarListener { progress ->
+            recipeViewModel.onChangeServings(progress)
+            binding.tvNumberOfPortions.text = progress.toString()
+        }
+        binding.sbPortions.setOnSeekBarChangeListener(portionSeekBarListener)
+    }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+    class PortionSeekBarListener(val onChangeIngredients: (Int) -> Unit) :
+        SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            onChangeIngredients(progress)
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
 }
