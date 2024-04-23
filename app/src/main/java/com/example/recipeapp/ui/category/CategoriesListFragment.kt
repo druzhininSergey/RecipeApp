@@ -23,7 +23,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         FragmentListCategoriesBinding.inflate(layoutInflater)
     }
     private val categoriesViewModel: CategoriesViewModel by activityViewModels()
-    private val categoriesListAdapter = CategoriesListAdapter(emptyList())
+    private val categoriesListAdapter = CategoriesListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +42,13 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
     private fun initRecycler() {
         binding.rvCategories.adapter = categoriesListAdapter
-        categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { categories ->
-            categories.categories?.let {
-                categoriesListAdapter.dataSet = it
+        categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
+            state.categories?.let { categories ->
+                categoriesListAdapter.dataSet = categories
             }
         }
-       categoriesListAdapter.setOnItemClickListener(object : CategoriesListAdapter.OnItemClickListener {
+        categoriesListAdapter.setOnItemClickListener(object :
+            CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
                 openRecipesByCategoryId(categoryId)
             }

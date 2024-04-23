@@ -23,7 +23,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
         FragmentListRecipesBinding.inflate(layoutInflater)
     }
     private val recipesViewModel: RecipesViewModel by activityViewModels()
-    private val recipesListAdapter = RecipesListAdapter(emptyList())
+    private val recipesListAdapter = RecipesListAdapter()
     private var categoryId: Int? = null
     private var categoryName: String? = null
     private var categoryImageUrl: String? = null
