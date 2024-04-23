@@ -12,7 +12,7 @@ import com.example.recipeapp.databinding.ItemCategoryBinding
 import java.io.InputStream
 import java.lang.Exception
 
-class CategoriesListAdapter(private val dataSet: List<Category>) :
+class CategoriesListAdapter(var dataSet: List<Category>) :
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {

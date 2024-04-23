@@ -271,6 +271,10 @@ object STUB {
         else listOf()
     }
 
+    fun getImageUrlByCategoryId(categoryId: Int): String {
+        return categories[categoryId].imageUrl
+    }
+
     fun getRecipeById(recipeId: Int): Recipe =
         burgerRecipes.find { it.id == recipeId } ?: burgerRecipes[0]
 
