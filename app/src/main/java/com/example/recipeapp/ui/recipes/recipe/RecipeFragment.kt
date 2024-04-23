@@ -20,6 +20,8 @@ class RecipeFragment : Fragment() {
     }
     private val recipeViewModel: RecipeViewModel by activityViewModels()
     private val theme: Theme? = view?.context?.theme
+    private val ingredientsAdapter = IngredientsAdapter(emptyList())
+    private val methodAdapter = MethodAdapter(emptyList())
 
 
     override fun onCreateView(
@@ -35,7 +37,6 @@ class RecipeFragment : Fragment() {
             recipeViewModel.loadRecipe(it.getInt(ARG_RECIPE_ID))
         }
         initUi()
-
     }
 
     private fun initUi() {
@@ -52,6 +53,9 @@ class RecipeFragment : Fragment() {
                 resources.getColor(R.color.main_background_color, theme)
             )
         )
+        binding.rvIngredients.adapter = ingredientsAdapter
+        binding.rvMethod.adapter = methodAdapter
+
         recipeViewModel.recipeState.observe(viewLifecycleOwner) { state ->
             state.recipe?.let {
                 binding.tvTitleRecipe.apply {
@@ -64,8 +68,6 @@ class RecipeFragment : Fragment() {
             updateFavoriteIcon(state.isFavorite)
             initRecycler(state)
         }
-
-
     }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
@@ -89,30 +91,29 @@ class RecipeFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun initRecycler(state: RecipeViewModel.RecipeState) {
-        val adapterIngredient = state.recipe?.ingredients?.let { IngredientsAdapter(it) }
-        binding.rvIngredients.adapter = adapterIngredient
+        state.recipe?.let { recipe ->
+            ingredientsAdapter.dataSet = recipe.ingredients
+            methodAdapter.dataSet = recipe.method
+        }
+        ingredientsAdapter.updateIngredients(state.servings)
 
-        val adapterMethod = state.recipe?.method?.let { MethodAdapter(it) }
-        binding.rvMethod.adapter = adapterMethod
-        adapterIngredient?.updateIngredients(state.servings)
+        val portionSeekBarListener = PortionSeekBarListener { progress ->
+            recipeViewModel.onChangeServings(progress)
+            binding.tvNumberOfPortions.text = progress.toString()
+        }
+        binding.sbPortions.setOnSeekBarChangeListener(portionSeekBarListener)
+    }
 
+    class PortionSeekBarListener(val onChangeIngredients: (Int) -> Unit) :
+        SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            onChangeIngredients(progress)
+        }
 
-        binding.sbPortions.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar?,
-                progress: Int,
-                fromUser: Boolean
-            ) {
-                recipeViewModel.onChangeServings(progress)
-                binding.tvNumberOfPortions.text = progress.toString()
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
     }
 }
