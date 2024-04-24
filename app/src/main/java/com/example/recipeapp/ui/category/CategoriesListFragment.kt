@@ -6,9 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.example.recipeapp.data.ARG_CATEGORY_ID
 import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
 import com.example.recipeapp.data.ARG_CATEGORY_NAME
@@ -22,7 +22,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     private val binding: FragmentListCategoriesBinding by lazy {
         FragmentListCategoriesBinding.inflate(layoutInflater)
     }
-    private val categoriesViewModel: CategoriesViewModel by activityViewModels()
+    private val categoriesViewModel: CategoriesViewModel by viewModels()
     private val categoriesListAdapter = CategoriesListAdapter()
 
     override fun onCreateView(
@@ -43,9 +43,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     private fun initRecycler() {
         binding.rvCategories.adapter = categoriesListAdapter
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
-            state.categories?.let { categories ->
-                categoriesListAdapter.dataSet = categories
-            }
+            categoriesListAdapter.dataSet = state.categories
         }
         categoriesListAdapter.setOnItemClickListener(object :
             CategoriesListAdapter.OnItemClickListener {

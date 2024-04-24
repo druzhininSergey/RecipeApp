@@ -271,8 +271,8 @@ object STUB {
         else listOf()
     }
 
-    fun getImageUrlByCategoryId(categoryId: Int): String {
-        return categories[categoryId].imageUrl
+    fun getCategoryByCategoryId(categoryId: Int): Category {
+        return categories[categoryId]
     }
 
     fun getRecipeById(recipeId: Int): Recipe =

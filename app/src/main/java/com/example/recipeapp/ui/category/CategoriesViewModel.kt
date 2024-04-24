@@ -13,7 +13,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     val categoriesState: LiveData<CategoriesState> = _categoriesState
 
     data class CategoriesState(
-        val categories: List<Category>? = null,
+        val categories: List<Category> = emptyList(),
     )
 
     fun loadCategories() {

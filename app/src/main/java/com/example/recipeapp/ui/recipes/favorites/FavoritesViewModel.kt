@@ -16,7 +16,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesState: LiveData<FavoritesState> = _favoritesState
 
     data class FavoritesState(
-        val favoritesList: List<Recipe>? = null,
+        val favoritesList: List<Recipe> = emptyList(),
     )
 
     fun loadFavorites() {

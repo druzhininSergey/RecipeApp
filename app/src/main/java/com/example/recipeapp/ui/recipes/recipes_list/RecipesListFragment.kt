@@ -12,8 +12,6 @@ import androidx.fragment.app.replace
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 import com.example.recipeapp.data.ARG_CATEGORY_ID
-import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 
@@ -24,9 +22,6 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     }
     private val recipesViewModel: RecipesViewModel by activityViewModels()
     private val recipesListAdapter = RecipesListAdapter()
-    private var categoryId: Int? = null
-    private var categoryName: String? = null
-    private var categoryImageUrl: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +33,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            categoryId = it.getInt(ARG_CATEGORY_ID)
-            categoryName = it.getString(ARG_CATEGORY_NAME)
-            categoryImageUrl = it.getString(ARG_CATEGORY_IMAGE_URL)
-            recipesViewModel.loadRecipesList(categoryId ?: 0)
+            recipesViewModel.loadRecipesList(it.getInt(ARG_CATEGORY_ID))
         }
         recipesViewModel.recipesState.observe(viewLifecycleOwner) { state ->
             initUI(state)
@@ -53,9 +45,9 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
         binding.rvRecipes.adapter = recipesListAdapter
         binding.ivRecipesTitle.setImageDrawable(state.titleImage)
         binding.tvRecipesTitle.apply {
-            text = categoryName
+            text = state.categoryName
             contentDescription =
-                view?.context?.getString(R.string.recipes_title_image) + " " + categoryName
+                view?.context?.getString(R.string.recipes_title_image) + " " + state.categoryName
         }
     }
 
