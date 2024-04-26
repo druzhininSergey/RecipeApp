@@ -2,13 +2,9 @@ package com.example.recipeapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import com.example.recipeapp.ui.category.CategoriesListFragment
+import androidx.navigation.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
-import com.example.recipeapp.ui.recipes.favorites.FavoritesFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,23 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<CategoriesListFragment>(R.id.mainContainer)
-            }
-        }
         binding.btnCategory.setOnClickListener {
-            supportFragmentManager.commit {
-                replace<CategoriesListFragment>(R.id.mainContainer)
-                setReorderingAllowed(true)
-            }
+            findNavController(R.id.nav_host_fragment).navigate(R.id.categoriesListFragment)
         }
         binding.btnFavorites.setOnClickListener {
-            supportFragmentManager.commit {
-                replace<FavoritesFragment>(R.id.mainContainer)
-                setReorderingAllowed(true)
-            }
+            findNavController(R.id.nav_host_fragment).navigate(R.id.favoritesFragment)
         }
     }
 }

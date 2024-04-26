@@ -8,11 +8,9 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.data.ARG_RECIPE_ID
-import com.example.recipeapp.ui.recipes.recipe.RecipeFragment
 import com.example.recipeapp.ui.recipes.recipes_list.RecipesListAdapter
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
 
@@ -56,10 +54,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private fun openRecipeByRecipeId(recipeId: Int) {
         val bundle = bundleOf(ARG_RECIPE_ID to recipeId)
-        parentFragmentManager.commit {
-            replace<RecipeFragment>(R.id.mainContainer, args = bundle)
-            setReorderingAllowed(true)
-        }
+        findNavController().navigate(R.id.recipeFragment, bundle)
     }
-
 }
