@@ -20,8 +20,8 @@ class RecipeFragment : Fragment() {
     }
     private val recipeViewModel: RecipeViewModel by activityViewModels()
     private val theme: Theme? = view?.context?.theme
-    private val ingredientsAdapter = IngredientsAdapter(emptyList())
-    private val methodAdapter = MethodAdapter(emptyList())
+    private val ingredientsAdapter = IngredientsAdapter()
+    private val methodAdapter = MethodAdapter()
 
 
     override fun onCreateView(

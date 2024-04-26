@@ -12,7 +12,7 @@ import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 import java.lang.Exception
 
-class RecipesListAdapter(private val dataSet: List<Recipe>) :
+class RecipesListAdapter(var dataSet: List<Recipe> = emptyList()) :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     interface OnItemClickListener {
