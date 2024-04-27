@@ -51,9 +51,8 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         val category = STUB.getCategories().find { it.id == categoryId }
         if (category != null) {
             findNavController().navigate(
-                CategoriesListFragmentDirections.actionCategoriesListFragmentToRecipesListFragment(
-                    category
-                )
+                CategoriesListFragmentDirections
+                    .actionCategoriesListFragmentToRecipesListFragment(category)
             )
         } else throw IllegalArgumentException("Категория с Id \"$categoryId\" не найдена.")
     }
