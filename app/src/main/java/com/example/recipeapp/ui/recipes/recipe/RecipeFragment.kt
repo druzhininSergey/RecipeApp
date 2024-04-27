@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
-import com.example.recipeapp.data.ARG_RECIPE_ID
 import com.example.recipeapp.ui.ItemDecoration
 
 class RecipeFragment : Fragment() {
@@ -22,6 +22,7 @@ class RecipeFragment : Fragment() {
     private val theme: Theme? = view?.context?.theme
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
+    private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
 
 
     override fun onCreateView(
@@ -33,8 +34,9 @@ class RecipeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val recipeId = recipeFragmentArgs.recipeId
         arguments?.let {
-            recipeViewModel.loadRecipe(it.getInt(ARG_RECIPE_ID))
+            recipeViewModel.loadRecipe(recipeId)
         }
         initUi()
     }
