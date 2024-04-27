@@ -59,9 +59,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     private fun openRecipeByRecipeId(recipeId: Int) {
         findNavController().navigate(
-            RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment2(
-                recipeId
-            )
+            RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeId)
         )
     }
 }
