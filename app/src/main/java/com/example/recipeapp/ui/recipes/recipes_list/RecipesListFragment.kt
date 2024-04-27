@@ -19,7 +19,6 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     private val recipesViewModel: RecipesViewModel by activityViewModels()
     private val recipesListAdapter = RecipesListAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
