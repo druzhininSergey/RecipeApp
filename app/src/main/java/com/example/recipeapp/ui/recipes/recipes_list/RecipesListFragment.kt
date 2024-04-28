@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
-import com.example.recipeapp.data.ARG_CATEGORY_ID
 
 class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
@@ -18,6 +18,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     }
     private val recipesViewModel: RecipesViewModel by activityViewModels()
     private val recipesListAdapter = RecipesListAdapter()
+    private val recipesListFragmentArgs: RecipesListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +30,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            recipesViewModel.loadRecipesList(it.getInt(ARG_CATEGORY_ID))
+            recipesViewModel.loadRecipesList(recipesListFragmentArgs.category.id)
         }
         recipesViewModel.recipesState.observe(viewLifecycleOwner) { state ->
             initUI(state)
@@ -58,9 +59,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     private fun openRecipeByRecipeId(recipeId: Int) {
         findNavController().navigate(
-            RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment2(
-                recipeId
-            )
+            RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeId)
         )
     }
 }

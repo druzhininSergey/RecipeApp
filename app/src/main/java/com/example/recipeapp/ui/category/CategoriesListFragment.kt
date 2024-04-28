@@ -5,12 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.recipeapp.data.ARG_CATEGORY_ID
-import com.example.recipeapp.data.ARG_CATEGORY_IMAGE_URL
-import com.example.recipeapp.data.ARG_CATEGORY_NAME
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 import com.example.recipeapp.data.STUB
@@ -52,15 +48,12 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     }
 
     fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories()[categoryId]
-        val categoryName = category.title
-        val categoryImageUrl = category.imageUrl
-
-        val bundle = bundleOf(
-            ARG_CATEGORY_ID to categoryId,
-            ARG_CATEGORY_NAME to categoryName,
-            ARG_CATEGORY_IMAGE_URL to categoryImageUrl
-        )
-        findNavController().navigate(R.id.recipesListFragment, bundle)
+        val category = STUB.getCategories().find { it.id == categoryId }
+        if (category != null) {
+            findNavController().navigate(
+                CategoriesListFragmentDirections
+                    .actionCategoriesListFragmentToRecipesListFragment(category)
+            )
+        } else throw IllegalArgumentException("Категория с Id \"$categoryId\" не найдена.")
     }
 }
