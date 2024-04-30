@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.navigation.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.ActivityMainBinding
-import com.example.recipeapp.model.CategorySerializable
+import com.example.recipeapp.model.Category
 import kotlinx.serialization.json.Json
 import java.net.HttpURLConnection
 import java.net.URL
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("!!!", "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}")
 
         val json = Json { ignoreUnknownKeys = true }
-        var categories: List<CategorySerializable>
+        var categories: List<Category>
         val thread = Thread {
             val url = URL("https://recipes.androidsprint.ru/api/category")
             val connection = url.openConnection() as HttpURLConnection
