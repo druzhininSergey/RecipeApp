@@ -13,6 +13,7 @@ data class Category(
     val imageUrl: String,
 ) : Parcelable
 
+@Serializable
 @Parcelize
 data class Recipe(
     val id: Int,
@@ -22,6 +23,7 @@ data class Recipe(
     val imageUrl: String,
 ) : Parcelable
 
+@Serializable
 @Parcelize
 data class Ingredient(
     val quantity: String,
