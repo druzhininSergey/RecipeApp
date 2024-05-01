@@ -9,6 +9,9 @@ import com.example.recipeapp.databinding.ActivityMainBinding
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import kotlinx.serialization.json.Json
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
@@ -36,23 +39,35 @@ class MainActivity : AppCompatActivity() {
         var categoriesIds: List<Int>
         var recipesList: List<Recipe>
 
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
         threadPool.execute {
-            val urlCategory = URL("https://recipes.androidsprint.ru/api/category")
-            val connection = urlCategory.openConnection() as HttpURLConnection
-            connection.connect()
-            val response = connection.inputStream.bufferedReader().readText()
+            val client: OkHttpClient = OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .build()
 
-            Log.i("!!!", "Выполняю запрос на потоке: ${Thread.currentThread().name}")
-            categories = json.decodeFromString(response)
-            categoriesIds = categories.map { it.id }
+            val requestCategory: Request = Request.Builder()
+                .url("https://recipes.androidsprint.ru/api/category")
+                .build()
 
-            val urlRecipesList =
-                URL("https://recipes.androidsprint.ru/api/recipes?ids=${categoriesIds.joinToString(",")}")
-            val connectionRecipes = urlRecipesList.openConnection() as HttpURLConnection
-            val responseRecipes = connectionRecipes.inputStream.bufferedReader().readText()
-            recipesList = json.decodeFromString(responseRecipes)
+            client.newCall(requestCategory).execute().use { response ->
+                categories = json.decodeFromString(response.body?.string() ?: "1")
+                categoriesIds = categories.map { it.id }
+            }
 
-            Log.i("!!!", "Список рецептов: $recipesList")
+            val requestRecipesList: Request = Request.Builder()
+                .url(
+                    "https://recipes.androidsprint.ru/api/recipes?ids=${
+                        categoriesIds.joinToString(",")
+                    }"
+                )
+                .build()
+
+            client.newCall(requestRecipesList).execute().use { response ->
+                recipesList = json.decodeFromString(response.body?.string() ?: "1")
+                Log.i("!!!", "Список рецептов: $recipesList")
+            }
         }
     }
 }
