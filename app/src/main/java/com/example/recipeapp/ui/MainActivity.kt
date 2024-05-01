@@ -52,7 +52,10 @@ class MainActivity : AppCompatActivity() {
                 .build()
 
             client.newCall(requestCategory).execute().use { response ->
-                categories = json.decodeFromString(response.body?.string() ?: "1")
+                val responseBody = response.body?.string()
+                categories = if (responseBody != null) json.decodeFromString(responseBody)
+                else emptyList()
+
                 categoriesIds = categories.map { it.id }
             }
 
@@ -65,7 +68,9 @@ class MainActivity : AppCompatActivity() {
                 .build()
 
             client.newCall(requestRecipesList).execute().use { response ->
-                recipesList = json.decodeFromString(response.body?.string() ?: "1")
+                val responseBody = response.body?.string()
+                recipesList = if(responseBody != null) json.decodeFromString(responseBody)
+                    else emptyList()
                 Log.i("!!!", "Список рецептов: $recipesList")
             }
         }
