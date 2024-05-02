@@ -1,5 +1,6 @@
 package com.example.recipeapp.data
 
+import android.util.Log
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -33,11 +34,12 @@ class RecipesRepository {
         }
     }
 
-    fun getRecipesByIdsList(listIds: Set<String>): List<Recipe>? {
+    fun getRecipesByIdsList(listIds: List<Int>): List<Recipe>? {
         try {
             val recipesCall = recipeApiService.getRecipesByIdsList(listIds)
             val recipesResponse = recipesCall.execute()
             val recipes = recipesResponse.body()
+            Log.i("!!!", "Список избранного: $recipes")
             return recipes
         } catch (e: Exception) {
             return null

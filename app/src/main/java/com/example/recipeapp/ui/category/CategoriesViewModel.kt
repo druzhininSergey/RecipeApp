@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Category
 
@@ -11,6 +12,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     private var _categoriesState = MutableLiveData<CategoriesState>()
     val categoriesState: LiveData<CategoriesState> = _categoriesState
+    val recipesRepository = RecipesRepository()
 
     data class CategoriesState(
         val categories: List<Category> = emptyList(),

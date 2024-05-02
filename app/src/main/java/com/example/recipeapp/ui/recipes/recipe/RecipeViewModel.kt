@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 import java.io.InputStream
@@ -18,6 +19,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     private var _recipeState = MutableLiveData<RecipeState>()
     val recipeState: LiveData<RecipeState> = _recipeState
+    val recipesRepository = RecipesRepository()
 
     data class RecipeState(
         var recipe: Recipe? = null,

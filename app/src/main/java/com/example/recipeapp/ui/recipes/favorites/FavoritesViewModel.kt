@@ -14,15 +14,17 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var _favoritesState = MutableLiveData<FavoritesState>()
     val favoritesState: LiveData<FavoritesState> = _favoritesState
+    val recipesRepository = RecipesRepository()
 
     data class FavoritesState(
         val favoritesList: List<Recipe>? = emptyList(),
     )
 
     fun loadFavorites() {
+
         val favorites = getFavorites()
         _favoritesState.value = FavoritesState(
-            favoritesList = RecipesRepository().getRecipesByIdsList(favorites),
+            favoritesList = RecipesRepository().getRecipesByIdsList(listOf(1,2,3)),
         )
     }
 

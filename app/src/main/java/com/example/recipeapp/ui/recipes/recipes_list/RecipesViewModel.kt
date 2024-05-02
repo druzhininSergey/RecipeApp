@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -15,6 +16,7 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
 
     private var _recipesState = MutableLiveData<RecipesState>()
     val recipesState: LiveData<RecipesState> = _recipesState
+    val recipesRepository = RecipesRepository()
 
     data class RecipesState(
         val recipesList: List<Recipe> = emptyList(),
