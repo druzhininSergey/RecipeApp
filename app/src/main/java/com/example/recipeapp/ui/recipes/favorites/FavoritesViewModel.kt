@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
-import com.example.recipeapp.data.STUB
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,13 +16,13 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val favoritesState: LiveData<FavoritesState> = _favoritesState
 
     data class FavoritesState(
-        val favoritesList: List<Recipe> = emptyList(),
+        val favoritesList: List<Recipe>? = emptyList(),
     )
 
     fun loadFavorites() {
         val favorites = getFavorites()
         _favoritesState.value = FavoritesState(
-            favoritesList = STUB.getRecipesByIds(favorites),
+            favoritesList = RecipesRepository().getRecipesByIdsList(favorites),
         )
     }
 
