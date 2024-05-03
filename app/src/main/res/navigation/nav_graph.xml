@@ -38,8 +38,8 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <argument
-            android:name="category"
-            app:argType="com.example.recipeapp.model.Category" />
+            android:name="categoryId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/recipeFragment"

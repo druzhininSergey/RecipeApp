@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 class RecipesRepository() {
     private val contentType = "application/json".toMediaType()
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://recipes.androidsprint.ru/api/")
+        .baseUrl(BASE_URL)
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)
