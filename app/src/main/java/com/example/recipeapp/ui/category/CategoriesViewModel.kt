@@ -1,6 +1,7 @@
 package com.example.recipeapp.ui.category
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,6 +20,11 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCategories() {
         val categories = recipesRepository.getCategories()
-        _categoriesState.value = categories?.let { CategoriesState(it) }
+        if (categories == null) Toast.makeText(
+            getApplication(),
+            "Ошибка получения данных",
+            Toast.LENGTH_SHORT
+        ).show()
+        else _categoriesState.value = categories.let { CategoriesState(it) }
     }
 }

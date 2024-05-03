@@ -5,12 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.model.Recipe
 
 class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
@@ -56,6 +56,9 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
                 CategoriesListFragmentDirections
                     .actionCategoriesListFragmentToRecipesListFragment(category)
             )
-        } else throw IllegalArgumentException("Категория с Id \"$categoryId\" не найдена.")
+        } else {
+            Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+            throw IllegalArgumentException("Категория с Id \"$categoryId\" не найдена.")
+        }
     }
 }

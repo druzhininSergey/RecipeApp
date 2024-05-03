@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -29,6 +30,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
+        if (recipe == null) Toast.makeText(
+            getApplication(),
+            "Ошибка получения данных",
+            Toast.LENGTH_SHORT
+        ).show()
         val isFavorite = getFavorites().contains(recipeId.toString())
         var titleImage: Drawable? = null
         try {

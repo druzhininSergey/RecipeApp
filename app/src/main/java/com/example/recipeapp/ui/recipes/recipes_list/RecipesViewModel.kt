@@ -25,7 +25,7 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
 
     fun loadRecipesList(categoryId: Int) {
         var titleImage: Drawable? = null
-        val category : Category? = recipesRepository.getCategoryByCategoryId(categoryId)
+        val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
         try {
             val inputStream: InputStream? = category?.imageUrl?.let {
                 getApplication<Application>().assets?.open(it)
