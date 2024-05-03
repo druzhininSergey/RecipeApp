@@ -10,11 +10,13 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class RecipesRepository {
+class RecipesRepository (
+
+){
     private val recipeApiService: RecipeApiService
 
-    val contentType = "application/json".toMediaType()
-    val retrofit = Retrofit.Builder()
+    private val contentType = "application/json".toMediaType()
+    private val retrofit = Retrofit.Builder()
         .baseUrl("https://recipes.androidsprint.ru/api/")
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
@@ -73,6 +75,8 @@ class RecipesRepository {
             val categoriesCall: Call<List<Category>> = recipeApiService.getCategories()
             val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
             val categories: List<Category>? = categoriesResponse.body()
+            Log.i("!!!", "Список избранного: $categories")
+
             return categories
         } catch (e: Exception) {
             return null

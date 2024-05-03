@@ -37,61 +37,8 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment).navigate(R.id.favoritesFragment)
         }
 
-        Log.i("!!!", "Метод onCreate() выполняется на потоке: ${Thread.currentThread().name}")
-
-        val json = Json { ignoreUnknownKeys = true }
-//        var categories: List<Category>
-        var categoriesIds: List<Int>
-        var recipesList: List<Recipe>
-
-        val loggingInterceptor =
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
         threadPool.execute {
-
-//            val contentType = "application/json".toMediaType()
-//            val retrofit = Retrofit.Builder()
-//                .baseUrl("https://recipes.androidsprint.ru/api/")
-//                .addConverterFactory(Json.asConverterFactory(contentType))
-//                .build()
-//
-//            val service: RecipeApiService = retrofit.create(RecipeApiService::class.java)
-//
-//            val categoriesCall: Call<List<Category>> = service.getCategories()
-//            val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
-//            val categories: List<Category>? = categoriesResponse.body()
-//            Log.i("!!!", "Categories: ${categories.toString()}")
-
-//            val client: OkHttpClient = OkHttpClient.Builder()
-//                .addInterceptor(loggingInterceptor)
-//                .build()
-//
-//            val requestCategory: Request = Request.Builder()
-//                .url("https://recipes.androidsprint.ru/api/category")
-//                .build()
-//
-//            client.newCall(requestCategory).execute().use { response ->
-//                val responseBody = response.body?.string()
-//                categories = if (responseBody != null) json.decodeFromString(responseBody)
-//                else emptyList()
-//
-//                categoriesIds = categories.map { it.id }
-//            }
-//
-//            val requestRecipesList: Request = Request.Builder()
-//                .url(
-//                    "https://recipes.androidsprint.ru/api/recipes?ids=${
-//                        categoriesIds.joinToString(",")
-//                    }"
-//                )
-//                .build()
-//
-//            client.newCall(requestRecipesList).execute().use { response ->
-//                val responseBody = response.body?.string()
-//                recipesList = if(responseBody != null) json.decodeFromString(responseBody)
-//                    else emptyList()
-//                Log.i("!!!", "Список рецептов: $recipesList")
-//            }
         }
     }
 }
