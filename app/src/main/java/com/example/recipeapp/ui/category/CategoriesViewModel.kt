@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.RecipesRepository
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Category
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
@@ -19,7 +18,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     )
 
     fun loadCategories() {
-        val categories = STUB.getCategories()
-        _categoriesState.value = CategoriesState(categories)
+        val categories = recipesRepository.getCategories()
+        _categoriesState.value = categories?.let { CategoriesState(it) }
     }
 }

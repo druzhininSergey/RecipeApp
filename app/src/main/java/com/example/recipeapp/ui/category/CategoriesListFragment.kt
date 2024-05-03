@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
-import com.example.recipeapp.data.STUB
+import com.example.recipeapp.model.Recipe
 
 class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
@@ -18,6 +19,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     }
     private val categoriesViewModel: CategoriesViewModel by viewModels()
     private val categoriesListAdapter = CategoriesListAdapter()
+    private val recipesRepository = RecipesRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +50,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     }
 
     fun openRecipesByCategoryId(categoryId: Int) {
-        val category = STUB.getCategories().find { it.id == categoryId }
+        val category = recipesRepository.getCategories()?.find { it.id == categoryId }
         if (category != null) {
             findNavController().navigate(
                 CategoriesListFragmentDirections

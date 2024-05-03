@@ -24,10 +24,10 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadFavorites() {
 
         val favorites = getFavorites()
-        RecipesRepository().getRecipesByIdsList(favorites.joinToString(","))
-//        _favoritesState.value = FavoritesState(
-//            favoritesList = RecipesRepository().getRecipesByIdsList(favorites.joinToString(",")),
-//        )
+        _favoritesState.value = FavoritesState(
+            favoritesList = RecipesRepository().getRecipesByIdsList(favorites.joinToString(",")),
+        )
+        Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
     }
 
     private fun getFavorites(): MutableSet<String> {

@@ -11,7 +11,6 @@ import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.RecipesRepository
-import com.example.recipeapp.data.STUB
 import com.example.recipeapp.model.Recipe
 import java.io.InputStream
 
@@ -29,13 +28,12 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     )
 
     fun loadRecipe(recipeId: Int) {
-//        TODO("load from network")
-        val recipe = STUB.getRecipeById(recipeId)
+        val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
         val isFavorite = getFavorites().contains(recipeId.toString())
         var titleImage: Drawable? = null
         try {
             val inputStream: InputStream? =
-                getApplication<Application>().assets?.open(recipe.imageUrl)
+                recipe?.imageUrl?.let { getApplication<Application>().assets?.open(it) }
             titleImage = Drawable.createFromStream(inputStream, null)
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())

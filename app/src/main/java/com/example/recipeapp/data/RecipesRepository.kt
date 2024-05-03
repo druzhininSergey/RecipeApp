@@ -9,6 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
 class RecipesRepository {
@@ -22,62 +23,98 @@ class RecipesRepository {
 
 
     fun getRecipeByRecipeId(recipeId: Int): Recipe? {
-        try {
-            val recipeCall = recipeApiService.getRecipeByRecipeId(recipeId)
-            val recipeResponse = recipeCall.execute()
-            val recipe = recipeResponse.body()
-            return recipe
+        val callable = Callable {
+            try {
+                val recipeCall = recipeApiService.getRecipeByRecipeId(recipeId)
+                val recipeResponse = recipeCall.execute()
+                recipeResponse.body()
+            } catch (e: Exception) {
+                null
+            }
+        }
+        val future = threadPool.submit(callable)
+        return try {
+            future.get()
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 
-    fun getRecipesByIdsList(ids: String) {
-        threadPool.execute {
+    fun getRecipesByIdsList(ids: String): List<Recipe>? {
+        val callable = Callable {
             try {
                 val recipesCall = recipeApiService.getRecipesByIdsList(ids)
                 val recipesResponse = recipesCall.execute()
-                val recipes = recipesResponse.body()
-                Log.i("!!!", "Список избранного: $recipes")
+                recipesResponse.body()
             } catch (e: Exception) {
+                null
             }
         }
+        val future = threadPool.submit(callable)
+        return try {
+            future.get()
+        } catch (e: Exception) {
+            null
+        }
+
     }
 
     fun getCategoryByCategoryId(categoryId: Int): Category? {
-        try {
-            val categoryCall = recipeApiService.getCategoryByCategoryId(categoryId)
-            val categoryResponse = categoryCall.execute()
-            val category = categoryResponse.body()
-            return category
+        val callable = Callable {
+            try {
+                val categoryCall = recipeApiService.getCategoryByCategoryId(categoryId)
+                val categoryResponse = categoryCall.execute()
+                val category = categoryResponse.body()
+                category
+            } catch (e: Exception) {
+                null
+            }
+        }
+        val future = threadPool.submit(callable)
+        return try {
+            future.get()
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 
     fun getRecipesListByCategoryId(categoryId: Int): List<Recipe>? {
-        try {
-            val recipesCall = recipeApiService.getRecipesListByCategoryId(categoryId)
-            val recipesResponse = recipesCall.execute()
-            val recipes = recipesResponse.body()
-            return recipes
+        val callable = Callable {
+            try {
+                val recipesCall = recipeApiService.getRecipesListByCategoryId(categoryId)
+                val recipesResponse = recipesCall.execute()
+                val recipes = recipesResponse.body()
+                recipes
+            } catch (e: Exception) {
+                null
+            }
+        }
+        val future = threadPool.submit(callable)
+        return try {
+            future.get()
         } catch (e: Exception) {
-            return null
+            null
         }
     }
 
     fun getCategories(): List<Category>? {
-        try {
-            val categoriesCall: Call<List<Category>> = recipeApiService.getCategories()
-            val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
-            val categories: List<Category>? = categoriesResponse.body()
-            Log.i("!!!", "Список избранного: $categories")
-
-            return categories
-        } catch (e: Exception) {
-            return null
+        val callable = Callable {
+            try {
+                val categoriesCall: Call<List<Category>> = recipeApiService.getCategories()
+                val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
+                val categories: List<Category>? = categoriesResponse.body()
+                Log.i("!!!", "Список избранного: $categories")
+                categories
+            } catch (e: Exception) {
+                null
+            }
         }
-
+        val future = threadPool.submit(callable)
+        return try {
+            future.get()
+        } catch (e: Exception) {
+            null
+        }
     }
 
 }

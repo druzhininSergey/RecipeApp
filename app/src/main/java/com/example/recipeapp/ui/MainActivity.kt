@@ -1,11 +1,12 @@
 package com.example.recipeapp.ui
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.data.RecipeApiService
+import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.databinding.ActivityMainBinding
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -15,11 +16,10 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.Retrofit
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.concurrent.Executors
-
 
 class MainActivity : AppCompatActivity() {
 
