@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ItemDecoration
@@ -64,7 +65,8 @@ class RecipeFragment : Fragment() {
                     contentDescription =
                         it.title + " " + view?.context?.getString(R.string.recipe_title_image)
                 }
-                binding.ivTitleRecipe.setImageDrawable(state.recipeImage)
+                Glide.with(this).load(state.recipeImageUrl)
+                    .into(binding.ivTitleRecipe)
             }
             updateFavoriteIcon(state.isFavorite)
             initRecycler(state)

@@ -20,25 +20,16 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
     data class RecipesState(
         val recipesList: List<Recipe> = emptyList(),
         val categoryName: String? = null,
-        val titleImage: Drawable? = null,
+        val titleImageUrl: String? = null,
     )
 
     fun loadRecipesList(categoryId: Int) {
-        var titleImage: Drawable? = null
         val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
-        try {
-            val inputStream: InputStream? = category?.imageUrl?.let {
-                getApplication<Application>().assets?.open(it)
-            }
-            titleImage = Drawable.createFromStream(inputStream, null)
-        } catch (e: Exception) {
-            Log.e("assets", e.stackTraceToString())
-        }
         _recipesState.value = recipesRepository.getRecipesListByCategoryId(categoryId)?.let {
             RecipesState(
                 recipesList = it,
                 categoryName = category?.title,
-                titleImage = titleImage,
+                titleImageUrl = "https://recipes.androidsprint.ru/api/images/${category?.imageUrl}",
             )
         }
     }

@@ -25,7 +25,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         var recipe: Recipe? = null,
         var servings: Int = MIN_RECIPE_SERVINGS,
         var isFavorite: Boolean = false,
-        var recipeImage: Drawable? = null
+        var recipeImageUrl: String? = null
     )
 
     fun loadRecipe(recipeId: Int) {
@@ -36,18 +36,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             Toast.LENGTH_SHORT
         ).show()
         val isFavorite = getFavorites().contains(recipeId.toString())
-        var titleImage: Drawable? = null
-        try {
-            val inputStream: InputStream? =
-                recipe?.imageUrl?.let { getApplication<Application>().assets?.open(it) }
-            titleImage = Drawable.createFromStream(inputStream, null)
-        } catch (e: Exception) {
-            Log.e("assets", e.stackTraceToString())
-        }
+
         _recipeState.value = RecipeState(
             recipe = recipe,
             isFavorite = isFavorite,
-            recipeImage = titleImage
+            recipeImageUrl = "https://recipes.androidsprint.ru/api/images/${recipe?.imageUrl}"
         )
     }
 
