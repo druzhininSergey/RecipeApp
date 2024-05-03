@@ -24,7 +24,6 @@ import java.util.concurrent.Executors
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val threadPool = Executors.newFixedThreadPool(10)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.btnFavorites.setOnClickListener {
             findNavController(R.id.nav_host_fragment).navigate(R.id.favoritesFragment)
-        }
-
-
-        threadPool.execute {
         }
     }
 }

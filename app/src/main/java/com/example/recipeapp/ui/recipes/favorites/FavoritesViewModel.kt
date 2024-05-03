@@ -2,6 +2,7 @@ package com.example.recipeapp.ui.recipes.favorites
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,9 +24,10 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     fun loadFavorites() {
 
         val favorites = getFavorites()
-        _favoritesState.value = FavoritesState(
-            favoritesList = RecipesRepository().getRecipesByIdsList(listOf(1,2,3)),
-        )
+        RecipesRepository().getRecipesByIdsList(favorites.joinToString(","))
+//        _favoritesState.value = FavoritesState(
+//            favoritesList = RecipesRepository().getRecipesByIdsList(favorites.joinToString(",")),
+//        )
     }
 
     private fun getFavorites(): MutableSet<String> {

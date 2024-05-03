@@ -9,17 +9,17 @@ import okhttp3.MediaType.Companion.toMediaType
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
+import java.util.concurrent.Executors
 
-class RecipesRepository (
-
-){
+class RecipesRepository {
     private val contentType = "application/json".toMediaType()
-
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://recipes.androidsprint.ru/api/")
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+    private val threadPool = Executors.newFixedThreadPool(10)
+
 
     fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         try {
@@ -27,20 +27,20 @@ class RecipesRepository (
             val recipeResponse = recipeCall.execute()
             val recipe = recipeResponse.body()
             return recipe
-        } catch (e: Exception){
+        } catch (e: Exception) {
             return null
         }
     }
 
-    fun getRecipesByIdsList(listIds: List<Int>): List<Recipe>? {
-        try {
-            val recipesCall = recipeApiService.getRecipesByIdsList(listIds)
-            val recipesResponse = recipesCall.execute()
-            val recipes = recipesResponse.body()
-            Log.i("!!!", "Список избранного: $recipes")
-            return recipes
-        } catch (e: Exception) {
-            return null
+    fun getRecipesByIdsList(ids: String) {
+        threadPool.execute {
+            try {
+                val recipesCall = recipeApiService.getRecipesByIdsList(ids)
+                val recipesResponse = recipesCall.execute()
+                val recipes = recipesResponse.body()
+                Log.i("!!!", "Список избранного: $recipes")
+            } catch (e: Exception) {
+            }
         }
     }
 
