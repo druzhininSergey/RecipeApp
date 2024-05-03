@@ -13,17 +13,13 @@ import retrofit2.Retrofit
 class RecipesRepository (
 
 ){
-    private val recipeApiService: RecipeApiService
-
     private val contentType = "application/json".toMediaType()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://recipes.androidsprint.ru/api/")
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
-
-    init {
-        recipeApiService = retrofit.create(RecipeApiService::class.java)
-    }
+    private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)
 
     fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         try {
