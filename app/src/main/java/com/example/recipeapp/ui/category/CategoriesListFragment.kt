@@ -29,9 +29,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            categoriesViewModel.loadCategories()
-        }
+        categoriesViewModel.loadCategories()
         initRecycler()
     }
 

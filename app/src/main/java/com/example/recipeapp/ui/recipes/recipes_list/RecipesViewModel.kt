@@ -34,12 +34,20 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-        _recipesState.value = recipesRepository.getRecipesListByCategoryId(categoryId)?.let {
-            RecipesState(
+        val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
+        _recipesState.value = recipesList?.let {
+            _recipesState.value?.copy(
                 recipesList = it,
                 categoryName = category?.title,
-                titleImage = titleImage,
+                titleImage = titleImage
             )
         }
+            ?: recipesList?.let {
+                RecipesState(
+                    recipesList = it,
+                    categoryName = category?.title,
+                    titleImage = titleImage,
+                )
+            }
     }
 }

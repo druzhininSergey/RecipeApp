@@ -30,11 +30,8 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
-        if (recipe == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (recipe == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
         val isFavorite = getFavorites().contains(recipeId.toString())
         var titleImage: Drawable? = null
         try {
@@ -44,11 +41,16 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-        _recipeState.value = RecipeState(
+        _recipeState.value = _recipeState.value?.copy(
             recipe = recipe,
             isFavorite = isFavorite,
             recipeImage = titleImage
         )
+            ?: RecipeState(
+                recipe = recipe,
+                isFavorite = isFavorite,
+                recipeImage = titleImage
+            )
     }
 
     fun onFavoritesClicked() {

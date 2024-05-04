@@ -29,9 +29,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.let {
-            recipesViewModel.loadRecipesList(recipesListFragmentArgs.categoryId)
-        }
+        recipesViewModel.loadRecipesList(recipesListFragmentArgs.categoryId)
         recipesViewModel.recipesState.observe(viewLifecycleOwner) { state ->
             initUI(state)
             initRecycler(state)

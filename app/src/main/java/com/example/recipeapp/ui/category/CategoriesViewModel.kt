@@ -20,11 +20,9 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCategories() {
         val categories = recipesRepository.getCategories()
-        if (categories == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
-        else _categoriesState.value = categories.let { CategoriesState(it) }
+        if (categories == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+        else _categoriesState.value = _categoriesState.value?.copy(categories = categories)
+            ?: CategoriesState(categories = categories)
     }
 }

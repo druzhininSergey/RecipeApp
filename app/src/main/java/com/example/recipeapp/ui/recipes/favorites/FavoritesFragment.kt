@@ -30,20 +30,16 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            favoritesViewModel.loadFavorites()
-        }
+        favoritesViewModel.loadFavorites()
         initRecycler()
     }
 
     private fun initRecycler() {
         binging.rvFavorites.adapter = favoritesAdapter
         favoritesViewModel.favoritesState.observe(viewLifecycleOwner) { state ->
-            if (state.favoritesList != null) {
-                favoritesAdapter.dataSet = state.favoritesList
-                binging.tvNoFavorites.isVisible = state.favoritesList.isEmpty()
-                binging.rvFavorites.isVisible = state.favoritesList.isNotEmpty()
-            }
+            favoritesAdapter.dataSet = state.favoritesList
+            binging.tvNoFavorites.isVisible = state.favoritesList.isEmpty()
+            binging.rvFavorites.isVisible = state.favoritesList.isNotEmpty()
         }
         favoritesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {

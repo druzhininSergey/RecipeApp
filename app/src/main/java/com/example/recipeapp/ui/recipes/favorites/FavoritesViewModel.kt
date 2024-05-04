@@ -19,21 +19,17 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val recipesRepository = RecipesRepository()
 
     data class FavoritesState(
-        val favoritesList: List<Recipe>? = emptyList(),
+        val favoritesList: List<Recipe> = emptyList(),
     )
 
     fun loadFavorites() {
 
         val favoritesIds = getFavorites()
         val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-        if (favorites == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
-        else _favoritesState.value = FavoritesState(
-            favoritesList = favorites,
-        )
+        if (favorites == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+        else _favoritesState.value = _favoritesState.value?.copy(favoritesList = favorites)
+            ?: FavoritesState(favoritesList = favorites)
         Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
     }
 
