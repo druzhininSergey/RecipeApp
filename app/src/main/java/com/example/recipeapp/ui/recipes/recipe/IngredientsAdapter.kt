@@ -37,16 +37,20 @@ class IngredientsAdapter(var dataSet: List<Ingredient> = emptyList()) :
     private var servings = MIN_RECIPE_SERVINGS
 
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
-        val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
-        val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
-                BigDecimal.ZERO
-            ) == 0
-        ) {
-            ingredientQuantity.intValueExact()
-        } else {
-            ingredientQuantity.setScale(1, RoundingMode.HALF_UP)
+        try {
+            val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
+            val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
+                    BigDecimal.ZERO
+                ) == 0
+            ) {
+                ingredientQuantity.intValueExact()
+            } else {
+                ingredientQuantity.setScale(1, RoundingMode.HALF_UP)
+            }
+            return formattedQuantity.toString() + " " + ingredient.unitOfMeasure
+        } catch (e: NumberFormatException){
+            return ""
         }
-        return formattedQuantity.toString() + " " + ingredient.unitOfMeasure
     }
 
     fun updateIngredients(progress: Int) {
