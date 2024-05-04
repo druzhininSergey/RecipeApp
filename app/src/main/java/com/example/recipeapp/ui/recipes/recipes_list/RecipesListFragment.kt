@@ -42,6 +42,8 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     private fun initUI(state: RecipesViewModel.RecipesState) {
         binding.rvRecipes.adapter = recipesListAdapter
         Glide.with(this).load(state.titleImageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
             .into(binding.ivRecipesTitle)
         binding.tvRecipesTitle.apply {
             text = state.categoryName

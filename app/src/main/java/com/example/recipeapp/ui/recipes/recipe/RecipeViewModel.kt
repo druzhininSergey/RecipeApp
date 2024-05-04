@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
+import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
@@ -40,7 +41,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         _recipeState.value = RecipeState(
             recipe = recipe,
             isFavorite = isFavorite,
-            recipeImageUrl = "https://recipes.androidsprint.ru/api/images/${recipe?.imageUrl}"
+            recipeImageUrl = IMAGE_BASE_URL + recipe?.imageUrl
         )
     }
 

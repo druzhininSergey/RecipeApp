@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.data.BASE_URL
+import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 

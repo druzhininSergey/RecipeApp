@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -29,7 +30,7 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
             RecipesState(
                 recipesList = it,
                 categoryName = category?.title,
-                titleImageUrl = "https://recipes.androidsprint.ru/api/images/${category?.imageUrl}",
+                titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
             )
         }
     }

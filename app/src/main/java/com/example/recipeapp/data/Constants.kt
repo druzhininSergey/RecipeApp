@@ -10,3 +10,6 @@ const val FAVORITES_PREFS_NAME = "recipe_favorites"
 const val FAVORITE_PREFS_KEY = "favorite_prefs_key"
 
 const val MIN_RECIPE_SERVINGS = 1
+
+const val BASE_URL = "https://recipes.androidsprint.ru/api/"
+const val IMAGE_BASE_URL = "https://recipes.androidsprint.ru/api/images/"

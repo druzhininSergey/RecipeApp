@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -65,8 +66,14 @@ class RecipeFragment : Fragment() {
                     contentDescription =
                         it.title + " " + view?.context?.getString(R.string.recipe_title_image)
                 }
-                Glide.with(this).load(state.recipeImageUrl)
-                    .into(binding.ivTitleRecipe)
+                try {
+                    Glide.with(this).load(state.recipeImageUrl)
+                        .placeholder(R.drawable.img_placeholder)
+                        .error(R.drawable.img_error)
+                        .into(binding.ivTitleRecipe)
+                }catch (e: Exception){
+                    Toast.makeText(context, "не смог загрузить изображение", Toast.LENGTH_SHORT).show()
+                }
             }
             updateFavoriteIcon(state.isFavorite)
             initRecycler(state)
