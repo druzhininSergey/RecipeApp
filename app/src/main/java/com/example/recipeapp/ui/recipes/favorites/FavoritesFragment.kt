@@ -30,9 +30,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            favoritesViewModel.loadFavorites()
-        }
+        favoritesViewModel.loadFavorites()
         initRecycler()
     }
 

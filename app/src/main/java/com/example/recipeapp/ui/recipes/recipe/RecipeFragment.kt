@@ -34,9 +34,7 @@ class RecipeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recipeId = recipeFragmentArgs.recipeId
-        arguments?.let {
-            recipeViewModel.loadRecipe(recipeId)
-        }
+        recipeViewModel.loadRecipe(recipeId)
         initUi()
     }
 
