@@ -14,7 +14,7 @@ import com.example.recipeapp.model.Recipe
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _favoritesState = MutableLiveData<FavoritesState>(FavoritesState())
+    private var _favoritesState = MutableLiveData(FavoritesState())
     val favoritesState: LiveData<FavoritesState> = _favoritesState
     val recipesRepository = RecipesRepository()
 

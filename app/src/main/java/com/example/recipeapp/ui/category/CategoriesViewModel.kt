@@ -10,7 +10,7 @@ import com.example.recipeapp.model.Category
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _categoriesState = MutableLiveData<CategoriesState>(CategoriesState())
+    private var _categoriesState = MutableLiveData(CategoriesState())
     val categoriesState: LiveData<CategoriesState> = _categoriesState
     val recipesRepository = RecipesRepository()
 
