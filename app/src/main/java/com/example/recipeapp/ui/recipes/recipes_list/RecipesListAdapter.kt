@@ -1,18 +1,14 @@
 package com.example.recipeapp.ui.recipes.recipes_list
 
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.databinding.ItemRecipesBinding
 import com.example.recipeapp.model.Recipe
-import java.io.InputStream
 
 class RecipesListAdapter(var dataSet: List<Recipe> = emptyList()) :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
@@ -44,19 +40,11 @@ class RecipesListAdapter(var dataSet: List<Recipe> = emptyList()) :
         viewHolder.tvRecipe.text = recipe.title
         viewHolder.ivRecipe.contentDescription =
             viewHolder.itemView.context.getString(R.string.recipe_image) + " " + recipe.title
-        try {
-            Glide.with(viewHolder.itemView.context)
-                .load(IMAGE_BASE_URL + recipe.imageUrl)
-                .placeholder(R.drawable.img_placeholder)
-                .error(R.drawable.img_error)
-                .into(viewHolder.ivRecipe)
-        } catch (e: Exception) {
-            Toast.makeText(
-                viewHolder.itemView.context,
-                "не смог загрузить изображение",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        Glide.with(viewHolder.itemView.context)
+            .load(IMAGE_BASE_URL + recipe.imageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(viewHolder.ivRecipe)
         viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick(recipe.id) }
     }
 

@@ -64,14 +64,10 @@ class RecipeFragment : Fragment() {
                     contentDescription =
                         it.title + " " + view?.context?.getString(R.string.recipe_title_image)
                 }
-                try {
-                    Glide.with(this).load(state.recipeImageUrl)
-                        .placeholder(R.drawable.img_placeholder)
-                        .error(R.drawable.img_error)
-                        .into(binding.ivTitleRecipe)
-                }catch (e: Exception){
-                    Toast.makeText(context, "не смог загрузить изображение", Toast.LENGTH_SHORT).show()
-                }
+                Glide.with(this).load(state.recipeImageUrl)
+                    .placeholder(R.drawable.img_placeholder)
+                    .error(R.drawable.img_error)
+                    .into(binding.ivTitleRecipe)
             }
             updateFavoriteIcon(state.isFavorite)
             initRecycler(state)

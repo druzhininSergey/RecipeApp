@@ -26,8 +26,9 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
 
     fun loadRecipesList(categoryId: Int) {
         val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
-        _recipesState.value = recipesRepository.getRecipesListByCategoryId(categoryId)?.let {
-            RecipesState(
+        val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
+        _recipesState.value = recipesList?.let {
+            recipesState.value?.copy(
                 recipesList = it,
                 categoryName = category?.title,
                 titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,

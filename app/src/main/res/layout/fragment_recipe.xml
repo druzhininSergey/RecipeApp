@@ -33,6 +33,7 @@
                 style="@style/StyleTitle20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="@dimen/max_title_text_width"
                 android:layout_margin="16dp"
                 android:background="@drawable/shape_rounded_containers_title"
                 android:padding="@dimen/main_text_padding"
