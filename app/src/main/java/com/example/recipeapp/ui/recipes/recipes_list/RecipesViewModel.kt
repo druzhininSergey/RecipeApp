@@ -13,7 +13,7 @@ import java.io.InputStream
 
 class RecipesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _recipesState = MutableLiveData<RecipesState>()
+    private var _recipesState = MutableLiveData<RecipesState>(RecipesState())
     val recipesState: LiveData<RecipesState> = _recipesState
     private val recipesRepository = RecipesRepository()
 
@@ -36,18 +36,11 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
         }
         val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
         _recipesState.value = recipesList?.let {
-            _recipesState.value?.copy(
+            recipesState.value?.copy(
                 recipesList = it,
                 categoryName = category?.title,
                 titleImage = titleImage
             )
         }
-            ?: recipesList?.let {
-                RecipesState(
-                    recipesList = it,
-                    categoryName = category?.title,
-                    titleImage = titleImage,
-                )
-            }
     }
 }

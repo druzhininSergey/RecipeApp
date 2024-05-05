@@ -14,7 +14,7 @@ import com.example.recipeapp.model.Recipe
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _favoritesState = MutableLiveData<FavoritesState>()
+    private var _favoritesState = MutableLiveData<FavoritesState>(FavoritesState())
     val favoritesState: LiveData<FavoritesState> = _favoritesState
     val recipesRepository = RecipesRepository()
 
@@ -28,8 +28,7 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
         if (favorites == null) Toast
             .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-        else _favoritesState.value = _favoritesState.value?.copy(favoritesList = favorites)
-            ?: FavoritesState(favoritesList = favorites)
+        else _favoritesState.value = favoritesState.value?.copy(favoritesList = favorites)
         Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
     }
 

@@ -17,7 +17,7 @@ import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _recipeState = MutableLiveData<RecipeState>()
+    private var _recipeState = MutableLiveData<RecipeState>(RecipeState())
     val recipeState: LiveData<RecipeState> = _recipeState
     val recipesRepository = RecipesRepository()
 
@@ -41,16 +41,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         } catch (e: Exception) {
             Log.e("assets", e.stackTraceToString())
         }
-        _recipeState.value = _recipeState.value?.copy(
+        _recipeState.value = recipeState.value?.copy(
             recipe = recipe,
             isFavorite = isFavorite,
             recipeImage = titleImage
         )
-            ?: RecipeState(
-                recipe = recipe,
-                isFavorite = isFavorite,
-                recipeImage = titleImage
-            )
     }
 
     fun onFavoritesClicked() {
@@ -62,7 +57,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         else favorites.remove(recipeId)
         saveFavorites(favorites)
 
-        _recipeState.value = _recipeState.value?.copy(isFavorite = !isFavorite)
+        _recipeState.value = recipeState.value?.copy(isFavorite = !isFavorite)
     }
 
     private fun getFavorites(): MutableSet<String> {
@@ -87,6 +82,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun onChangeServings(servings: Int) {
-        _recipeState.value = _recipeState.value?.copy(servings = servings)
+        _recipeState.value = recipeState.value?.copy(servings = servings)
     }
 }
