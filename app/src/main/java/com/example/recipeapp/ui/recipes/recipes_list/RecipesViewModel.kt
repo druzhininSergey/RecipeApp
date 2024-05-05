@@ -14,7 +14,7 @@ import java.io.InputStream
 
 class RecipesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _recipesState = MutableLiveData<RecipesState>()
+    private var _recipesState = MutableLiveData(RecipesState())
     val recipesState: LiveData<RecipesState> = _recipesState
     private val recipesRepository = RecipesRepository()
 

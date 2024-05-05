@@ -18,7 +18,7 @@ import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _recipeState = MutableLiveData<RecipeState>()
+    private var _recipeState = MutableLiveData(RecipeState())
     val recipeState: LiveData<RecipeState> = _recipeState
     val recipesRepository = RecipesRepository()
 
@@ -31,14 +31,11 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
-        if (recipe == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
+        if (recipe == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
         val isFavorite = getFavorites().contains(recipeId.toString())
 
-        _recipeState.value = RecipeState(
+        _recipeState.value = recipeState.value?.copy(
             recipe = recipe,
             isFavorite = isFavorite,
             recipeImageUrl = IMAGE_BASE_URL + recipe?.imageUrl
@@ -54,7 +51,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         else favorites.remove(recipeId)
         saveFavorites(favorites)
 
-        _recipeState.value = _recipeState.value?.copy(isFavorite = !isFavorite)
+        _recipeState.value = recipeState.value?.copy(isFavorite = !isFavorite)
     }
 
     private fun getFavorites(): MutableSet<String> {
@@ -79,6 +76,6 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun onChangeServings(servings: Int) {
-        _recipeState.value = _recipeState.value?.copy(servings = servings)
+        _recipeState.value = recipeState.value?.copy(servings = servings)
     }
 }

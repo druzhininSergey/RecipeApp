@@ -10,7 +10,7 @@ import com.example.recipeapp.model.Category
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _categoriesState = MutableLiveData<CategoriesState>()
+    private var _categoriesState = MutableLiveData(CategoriesState())
     val categoriesState: LiveData<CategoriesState> = _categoriesState
     val recipesRepository = RecipesRepository()
 
@@ -20,11 +20,8 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCategories() {
         val categories = recipesRepository.getCategories()
-        if (categories == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
-        else _categoriesState.value = categories.let { CategoriesState(it) }
+        if (categories == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+        else _categoriesState.value = categoriesState.value?.copy(categories = categories)
     }
 }

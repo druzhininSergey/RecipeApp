@@ -1,14 +1,13 @@
 package com.example.recipeapp.data
 
-import android.app.Application
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -17,8 +16,12 @@ import java.util.concurrent.Executors
 
 class RecipesRepository() {
     private val contentType = "application/json".toMediaType()
+    private val loggingInterceptor =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+    val client: OkHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://recipes.androidsprint.ru/api/")
+        .baseUrl(BASE_URL)
+        .client(client)
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)

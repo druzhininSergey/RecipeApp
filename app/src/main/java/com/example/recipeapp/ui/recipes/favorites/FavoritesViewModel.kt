@@ -14,26 +14,21 @@ import com.example.recipeapp.model.Recipe
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var _favoritesState = MutableLiveData<FavoritesState>()
+    private var _favoritesState = MutableLiveData(FavoritesState())
     val favoritesState: LiveData<FavoritesState> = _favoritesState
     val recipesRepository = RecipesRepository()
 
     data class FavoritesState(
-        val favoritesList: List<Recipe>? = emptyList(),
+        val favoritesList: List<Recipe> = emptyList(),
     )
 
     fun loadFavorites() {
 
         val favoritesIds = getFavorites()
         val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-        if (favorites == null) Toast.makeText(
-            getApplication(),
-            "Ошибка получения данных",
-            Toast.LENGTH_SHORT
-        ).show()
-        else _favoritesState.value = FavoritesState(
-            favoritesList = favorites,
-        )
+        if (favorites == null) Toast
+            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+        else _favoritesState.value = favoritesState.value?.copy(favoritesList = favorites)
         Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
     }
 

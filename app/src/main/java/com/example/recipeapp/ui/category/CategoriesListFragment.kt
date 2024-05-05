@@ -21,7 +21,6 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     }
     private val categoriesViewModel: CategoriesViewModel by viewModels()
     private val categoriesListAdapter = CategoriesListAdapter()
-    private val recipesRepository = RecipesRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +31,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.let {
-            categoriesViewModel.loadCategories()
-        }
+        categoriesViewModel.loadCategories()
         initRecycler()
     }
 
@@ -43,24 +40,15 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
             categoriesListAdapter.dataSet = state.categories
         }
+
         categoriesListAdapter.setOnItemClickListener(object :
             CategoriesListAdapter.OnItemClickListener {
             override fun onItemClick(categoryId: Int) {
-                openRecipesByCategoryId(categoryId)
+                findNavController().navigate(
+                    CategoriesListFragmentDirections
+                        .actionCategoriesListFragmentToRecipesListFragment(categoryId)
+                )
             }
         })
-    }
-
-    fun openRecipesByCategoryId(categoryId: Int) {
-        val category = recipesRepository.getCategories()?.find { it.id == categoryId }
-        if (category != null) {
-            findNavController().navigate(
-                CategoriesListFragmentDirections
-                    .actionCategoriesListFragmentToRecipesListFragment(category)
-            )
-        } else {
-            Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-            throw IllegalArgumentException("Категория с Id \"$categoryId\" не найдена.")
-        }
     }
 }
