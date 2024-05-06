@@ -5,8 +5,10 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
+import kotlinx.coroutines.launch
 
 class CategoriesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -19,9 +21,11 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
     )
 
     fun loadCategories() {
-        val categories = recipesRepository.getCategories()
-        if (categories == null) Toast
-            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-        else _categoriesState.value = categoriesState.value?.copy(categories = categories)
+        viewModelScope.launch {
+            val categories = recipesRepository.getCategories()
+            if (categories == null) Toast
+                .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+            else _categoriesState.value = categoriesState.value?.copy(categories = categories)
+        }
     }
 }

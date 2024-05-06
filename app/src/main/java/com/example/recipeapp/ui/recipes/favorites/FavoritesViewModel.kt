@@ -7,10 +7,12 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,13 +25,13 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     )
 
     fun loadFavorites() {
-
-        val favoritesIds = getFavorites()
-        val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-        if (favorites == null) Toast
-            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-        else _favoritesState.value = favoritesState.value?.copy(favoritesList = favorites)
-        Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
+        viewModelScope.launch {
+            val favoritesIds = getFavorites()
+            val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
+            if (favorites == null) Toast
+                .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+            else _favoritesState.value = favoritesState.value?.copy(favoritesList = favorites)
+        }
     }
 
     private fun getFavorites(): MutableSet<String> {
