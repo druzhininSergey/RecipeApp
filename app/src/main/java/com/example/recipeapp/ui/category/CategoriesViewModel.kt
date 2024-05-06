@@ -14,7 +14,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     private var _categoriesState = MutableLiveData(CategoriesState())
     val categoriesState: LiveData<CategoriesState> = _categoriesState
-    val recipesRepository = RecipesRepository()
+    private val recipesRepository = RecipesRepository()
 
     data class CategoriesState(
         val categories: List<Category> = emptyList(),
