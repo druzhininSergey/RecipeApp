@@ -2,8 +2,6 @@ package com.example.recipeapp.ui.recipes.favorites
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,17 +17,20 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     val recipesRepository = RecipesRepository()
 
     data class FavoritesState(
-        val favoritesList: List<Recipe> = emptyList(),
+        var favoritesList: List<Recipe> = emptyList(),
+        var isError: Boolean = false,
     )
 
     fun loadFavorites() {
-
         val favoritesIds = getFavorites()
+        if (favoritesIds.isEmpty()) {
+            _favoritesState.value = favoritesState.value?.copy(favoritesList = emptyList())
+            return
+        }
         val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-        if (favorites == null) Toast
-            .makeText(getApplication(), "Ошибка получения данных", Toast.LENGTH_SHORT).show()
-        else _favoritesState.value = favoritesState.value?.copy(favoritesList = favorites)
-        Log.i("!!!", "state: ${favoritesState.value?.favoritesList}")
+        if (favorites == null) _favoritesState.value = favoritesState.value?.copy(isError = true)
+        else _favoritesState.value =
+            favoritesState.value?.copy(favoritesList = favorites, isError = false)
     }
 
     private fun getFavorites(): MutableSet<String> {
