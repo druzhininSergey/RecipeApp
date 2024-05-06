@@ -40,6 +40,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             favoritesAdapter.dataSet = state.favoritesList
             binging.tvNoFavorites.isVisible = state.favoritesList.isEmpty()
             binging.rvFavorites.isVisible = state.favoritesList.isNotEmpty()
+            favoritesAdapter.notifyDataSetChanged()
         }
         favoritesAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {

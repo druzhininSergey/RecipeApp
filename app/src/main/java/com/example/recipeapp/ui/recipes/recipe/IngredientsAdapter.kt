@@ -50,6 +50,5 @@ class IngredientsAdapter(var dataSet: List<Ingredient> = emptyList()) :
 
     fun updateIngredients(progress: Int) {
         servings = progress
-        notifyDataSetChanged()
     }
 }

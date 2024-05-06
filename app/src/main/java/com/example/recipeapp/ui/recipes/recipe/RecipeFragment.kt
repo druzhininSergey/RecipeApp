@@ -101,8 +101,10 @@ class RecipeFragment : Fragment() {
         state.recipe?.let { recipe ->
             ingredientsAdapter.dataSet = recipe.ingredients
             methodAdapter.dataSet = recipe.method
+            methodAdapter.notifyDataSetChanged()
         }
         ingredientsAdapter.updateIngredients(state.servings)
+        ingredientsAdapter.notifyDataSetChanged()
 
         val portionSeekBarListener = PortionSeekBarListener { progress ->
             recipeViewModel.onChangeServings(progress)

@@ -39,6 +39,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         binding.rvCategories.adapter = categoriesListAdapter
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
             categoriesListAdapter.dataSet = state.categories
+            categoriesListAdapter.notifyDataSetChanged()
         }
 
         categoriesListAdapter.setOnItemClickListener(object :
