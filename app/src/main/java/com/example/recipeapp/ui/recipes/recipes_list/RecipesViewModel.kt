@@ -18,22 +18,25 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
     private val recipesRepository = RecipesRepository()
 
     data class RecipesState(
-        val recipesList: List<Recipe> = emptyList(),
-        val categoryName: String? = null,
-        val titleImageUrl: String? = null,
+        var recipesList: List<Recipe> = emptyList(),
+        var categoryName: String? = null,
+        var titleImageUrl: String? = null,
+        var isError: Boolean = false,
     )
 
     fun loadRecipesList(categoryId: Int) {
         viewModelScope.launch {
             val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
+            if (category == null) _recipesState.value = recipesState.value?.copy(isError = true)
+
             val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
-            _recipesState.value = recipesList?.let {
-                recipesState.value?.copy(
-                    recipesList = it,
-                    categoryName = category?.title,
-                    titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
-                )
-            }
+            if (recipesList == null) _recipesState.value = recipesState.value?.copy(isError = true)
+            else _recipesState.value = recipesState.value?.copy(
+                recipesList = recipesList,
+                categoryName = category?.title,
+                titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
+                isError = false
+            )
         }
     }
 }
