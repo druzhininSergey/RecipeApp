@@ -28,13 +28,14 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
             val favoritesIds = getFavorites()
             if (favoritesIds.isEmpty()) {
                 _favoritesState.value = favoritesState.value?.copy(favoritesList = emptyList())
-                return
+            } else {
+                val favorites =
+                    recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
+                if (favorites == null) _favoritesState.value =
+                    favoritesState.value?.copy(isError = true)
+                else _favoritesState.value =
+                    favoritesState.value?.copy(favoritesList = favorites, isError = false)
             }
-            val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-            if (favorites == null) _favoritesState.value =
-                favoritesState.value?.copy(isError = true)
-            else _favoritesState.value =
-                favoritesState.value?.copy(favoritesList = favorites, isError = false)
         }
     }
 
