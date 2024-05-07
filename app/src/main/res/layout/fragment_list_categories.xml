@@ -16,6 +16,7 @@
             android:layout_height="@dimen/title_image_height">
 
             <ImageView
+                android:id="@+id/ivCategoriesTitleImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/title_image_category"

@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.R
+import com.example.recipeapp.data.BASE_URL
+import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.databinding.ItemCategoryBinding
 import java.io.InputStream
 import java.lang.Exception
@@ -44,14 +47,11 @@ class CategoriesListAdapter(var dataSet: List<Category> = emptyList()) :
         viewHolder.ivCategory.contentDescription =
             viewHolder.itemView.context.getString(R.string.category_image) + " " + category.title
         viewHolder.tvCategoryDescription.text = category.description
-        try {
-            val inputStream: InputStream? =
-                viewHolder.itemView.context?.assets?.open(category.imageUrl)
-            val drawable = Drawable.createFromStream(inputStream, null)
-            viewHolder.ivCategory.setImageDrawable(drawable)
-        } catch (e: Exception) {
-            Log.e("assets", e.stackTraceToString())
-        }
+        Glide.with(viewHolder.itemView.context)
+            .load(IMAGE_BASE_URL + category.imageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(viewHolder.ivCategory)
         viewHolder.itemView.setOnClickListener { itemClickListener?.onItemClick(category.id) }
     }
 

@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
@@ -38,7 +40,10 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     private fun initUI(state: RecipesViewModel.RecipesState) {
         binding.rvRecipes.adapter = recipesListAdapter
-        binding.ivRecipesTitle.setImageDrawable(state.titleImage)
+        Glide.with(this).load(state.titleImageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_error)
+            .into(binding.ivRecipesTitle)
         binding.tvRecipesTitle.apply {
             text = state.categoryName
             contentDescription =
@@ -47,6 +52,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     }
 
     private fun initRecycler(state: RecipesViewModel.RecipesState) {
+        if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
         recipesListAdapter.dataSet = state.recipesList
         recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {

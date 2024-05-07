@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.data.BASE_URL
+import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
@@ -36,6 +38,7 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     private fun initRecycler() {
         binding.rvCategories.adapter = categoriesListAdapter
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
+            if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
             categoriesListAdapter.dataSet = state.categories
         }
 
