@@ -98,14 +98,13 @@ class RecipeFragment : Fragment() {
     }
 
     private fun initRecycler(state: RecipeViewModel.RecipeState) {
-        if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+        if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT)
+            .show()
         state.recipe?.let { recipe ->
             ingredientsAdapter.dataSet = recipe.ingredients
             methodAdapter.dataSet = recipe.method
-            methodAdapter.notifyDataSetChanged()
         }
         ingredientsAdapter.updateIngredients(state.servings)
-        ingredientsAdapter.notifyDataSetChanged()
 
         val portionSeekBarListener = PortionSeekBarListener { progress ->
             recipeViewModel.onChangeServings(progress)

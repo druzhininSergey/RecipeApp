@@ -11,8 +11,14 @@ import com.example.recipeapp.model.Ingredient
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-class IngredientsAdapter(var dataSet: List<Ingredient> = emptyList()) :
+class IngredientsAdapter() :
     RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
+
+    var dataSet: List<Ingredient> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemIngredientBinding.bind(itemView)
@@ -38,12 +44,15 @@ class IngredientsAdapter(var dataSet: List<Ingredient> = emptyList()) :
 
     private fun setIngredientQuantityText(ingredient: Ingredient): String {
         return try {
-            val ingredientQuantity = ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
+            val ingredientQuantity =
+                ingredient.quantity.toBigDecimal().times(servings.toBigDecimal())
             val formattedQuantity = if (ingredientQuantity.remainder(BigDecimal.ONE).compareTo(
-                    BigDecimal.ZERO) == 0)  ingredientQuantity.intValueExact()
+                    BigDecimal.ZERO
+                ) == 0
+            ) ingredientQuantity.intValueExact()
             else ingredientQuantity.setScale(1, RoundingMode.HALF_UP)
             formattedQuantity.toString() + " " + ingredient.unitOfMeasure
-        } catch (e: NumberFormatException){
+        } catch (e: NumberFormatException) {
             ""
         }
     }

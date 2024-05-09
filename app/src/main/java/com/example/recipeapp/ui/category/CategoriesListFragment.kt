@@ -40,7 +40,6 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
             if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
             categoriesListAdapter.dataSet = state.categories
-            categoriesListAdapter.notifyDataSetChanged()
         }
 
         categoriesListAdapter.setOnItemClickListener(object :
