@@ -10,8 +10,14 @@ import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.databinding.ItemRecipesBinding
 import com.example.recipeapp.model.Recipe
 
-class RecipesListAdapter(var dataSet: List<Recipe> = emptyList()) :
+class RecipesListAdapter() :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
+
+    var dataSet: List<Recipe> = emptyList()
+        set(value){
+            field = value
+            notifyDataSetChanged()
+        }
 
     interface OnItemClickListener {
         fun onItemClick(recipeId: Int)

@@ -4,10 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 class RecipesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,16 +25,18 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
     )
 
     fun loadRecipesList(categoryId: Int) {
-        val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
-        if (category == null) _recipesState.value = recipesState.value?.copy(isError = true)
+        viewModelScope.launch {
+            val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
+            if (category == null) _recipesState.value = recipesState.value?.copy(isError = true)
 
-        val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
-        if (recipesList == null) _recipesState.value = recipesState.value?.copy(isError = true)
-        else _recipesState.value = recipesState.value?.copy(
-            recipesList = recipesList,
-            categoryName = category?.title,
-            titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
-            isError = false
-        )
+            val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
+            if (recipesList == null) _recipesState.value = recipesState.value?.copy(isError = true)
+            else _recipesState.value = recipesState.value?.copy(
+                recipesList = recipesList,
+                categoryName = category?.title,
+                titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
+                isError = false
+            )
+        }
     }
 }

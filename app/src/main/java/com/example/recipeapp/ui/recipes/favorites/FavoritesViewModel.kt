@@ -5,10 +5,12 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
 
 class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,15 +24,19 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
     )
 
     fun loadFavorites() {
-        val favoritesIds = getFavorites()
-        if (favoritesIds.isEmpty()) {
-            _favoritesState.value = favoritesState.value?.copy(favoritesList = emptyList())
-            return
+        viewModelScope.launch {
+            val favoritesIds = getFavorites()
+            if (favoritesIds.isEmpty()) {
+                _favoritesState.value = favoritesState.value?.copy(favoritesList = emptyList())
+            } else {
+                val favorites =
+                    recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
+                if (favorites == null) _favoritesState.value =
+                    favoritesState.value?.copy(isError = true)
+                else _favoritesState.value =
+                    favoritesState.value?.copy(favoritesList = favorites, isError = false)
+            }
         }
-        val favorites = recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-        if (favorites == null) _favoritesState.value = favoritesState.value?.copy(isError = true)
-        else _favoritesState.value =
-            favoritesState.value?.copy(favoritesList = favorites, isError = false)
     }
 
     private fun getFavorites(): MutableSet<String> {

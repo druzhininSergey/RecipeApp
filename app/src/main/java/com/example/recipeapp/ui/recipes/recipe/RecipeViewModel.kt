@@ -5,12 +5,15 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.launch
+import java.io.InputStream
 
 class RecipeViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,16 +30,18 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
     )
 
     fun loadRecipe(recipeId: Int) {
-        val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
-        if (recipe == null) _recipeState.value = recipeState.value?.copy(isError = true)
-        val isFavorite = getFavorites().contains(recipeId.toString())
+        viewModelScope.launch {
+            val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
+            if (recipe == null) _recipeState.value = recipeState.value?.copy(isError = true)
+            val isFavorite = getFavorites().contains(recipeId.toString())
 
-        _recipeState.value = recipeState.value?.copy(
-            recipe = recipe,
-            isFavorite = isFavorite,
-            recipeImageUrl = IMAGE_BASE_URL + recipe?.imageUrl,
-            isError = false,
-        )
+            _recipeState.value = recipeState.value?.copy(
+                recipe = recipe,
+                isFavorite = isFavorite,
+                recipeImageUrl = IMAGE_BASE_URL + recipe?.imageUrl,
+                isError = false,
+            )
+        }
     }
 
     fun onFavoritesClicked() {
