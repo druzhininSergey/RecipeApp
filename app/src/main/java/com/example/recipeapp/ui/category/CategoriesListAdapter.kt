@@ -15,8 +15,14 @@ import com.example.recipeapp.databinding.ItemCategoryBinding
 import java.io.InputStream
 import java.lang.Exception
 
-class CategoriesListAdapter(var dataSet: List<Category> = emptyList()) :
+class CategoriesListAdapter() :
     RecyclerView.Adapter<CategoriesListAdapter.ViewHolder>() {
+
+    var dataSet: List<Category> = emptyList()
+        set(value){
+            field = value
+            notifyDataSetChanged()
+        }
 
     interface OnItemClickListener {
         fun onItemClick(categoryId: Int)

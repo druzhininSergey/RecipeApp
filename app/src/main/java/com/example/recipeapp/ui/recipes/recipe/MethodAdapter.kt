@@ -7,8 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.R
 
-class MethodAdapter(var dataSet: List<String> = emptyList()) :
+class MethodAdapter() :
     RecyclerView.Adapter<MethodAdapter.ViewHolder>() {
+
+    var dataSet: List<String> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ItemMethodBinding.bind(itemView)

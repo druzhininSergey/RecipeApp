@@ -54,7 +54,6 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     private fun initRecycler(state: RecipesViewModel.RecipesState) {
         if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
         recipesListAdapter.dataSet = state.recipesList
-        recipesListAdapter.notifyDataSetChanged()
         recipesListAdapter.setOnItemClickListener(object : RecipesListAdapter.OnItemClickListener {
             override fun onItemClick(recipeId: Int) {
                 openRecipeByRecipeId(recipeId)
