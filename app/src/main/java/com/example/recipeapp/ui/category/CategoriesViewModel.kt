@@ -1,6 +1,7 @@
 package com.example.recipeapp.ui.category
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -15,7 +16,7 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     private var _categoriesState = MutableLiveData(CategoriesState())
     val categoriesState: LiveData<CategoriesState> = _categoriesState
-    private val recipesRepository = RecipesRepository()
+    private val recipesRepository = RecipesRepository(getApplication())
 
     data class CategoriesState(
         var categories: List<Category> = emptyList(),
@@ -24,7 +25,15 @@ class CategoriesViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCategories() {
         viewModelScope.launch {
-            val categories = recipesRepository.getCategories()
+            val categoriesDb = recipesRepository.getCategoriesFromCache()
+            val categoriesBackend = recipesRepository.getCategories()
+            val categories = if (categoriesDb.isNotEmpty()) {
+                categoriesDb
+            } else {
+                categoriesBackend?.let { recipesRepository.addCateforiesToCache(it) }
+                categoriesBackend
+            }
+
             if (categories == null) _categoriesState.value =
                 categoriesState.value?.copy(isError = true)
             else _categoriesState.value =

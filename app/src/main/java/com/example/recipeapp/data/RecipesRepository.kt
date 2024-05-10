@@ -1,6 +1,7 @@
 package com.example.recipeapp.data
 
-import android.util.Log
+import android.content.Context
+import androidx.room.Room
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -13,10 +14,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
-import java.util.concurrent.Callable
-import java.util.concurrent.Executors
 
-class RecipesRepository() {
+class RecipesRepository(val context: Context) {
     private val contentType = "application/json".toMediaType()
     private val loggingInterceptor =
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -28,7 +27,16 @@ class RecipesRepository() {
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)
+    val bd = Room.databaseBuilder(
+        context,
+        AppDatabase::class.java,
+        "database-categories"
+    ).build()
+    private val categoryDao = bd.categoryDao()
 
+    suspend fun getCategoriesFromCache() = withContext(Dispatchers.IO) { categoryDao.getAll() }
+    suspend fun addCateforiesToCache(categories: List<Category>) =
+        withContext(Dispatchers.IO) { categoryDao.addCategories(categories) }
 
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         return withContext(Dispatchers.IO) {
