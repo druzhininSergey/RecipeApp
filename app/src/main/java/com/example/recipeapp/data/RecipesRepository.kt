@@ -1,6 +1,6 @@
 package com.example.recipeapp.data
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
@@ -15,7 +15,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 
-class RecipesRepository(val context: Context) {
+class RecipesRepository(application: Application) {
     private val contentType = "application/json".toMediaType()
     private val loggingInterceptor =
         HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -27,15 +27,18 @@ class RecipesRepository(val context: Context) {
         .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
     private val recipeApiService: RecipeApiService = retrofit.create(RecipeApiService::class.java)
-    val bd = Room.databaseBuilder(
-        context,
+    private val bd = Room.databaseBuilder(
+        application.applicationContext,
         AppDatabase::class.java,
         "database-categories"
     ).build()
     private val categoryDao = bd.categoryDao()
 
-    suspend fun getCategoriesFromCache() = withContext(Dispatchers.IO) { categoryDao.getAll() }
-    suspend fun addCateforiesToCache(categories: List<Category>) =
+    suspend fun getCategoriesFromCache() = withContext(Dispatchers.IO) {
+        categoryDao.getAll()
+    }
+
+    suspend fun addCategoriesToCache(categories: List<Category>) =
         withContext(Dispatchers.IO) { categoryDao.addCategories(categories) }
 
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
@@ -90,6 +93,7 @@ class RecipesRepository(val context: Context) {
 
     suspend fun getCategories(): List<Category>? {
         return withContext(Dispatchers.IO) {
+            Thread.sleep(10000)
             try {
                 val categoriesCall: Call<List<Category>> = recipeApiService.getCategories()
                 val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
