@@ -30,16 +30,26 @@ class RecipesRepository(application: Application) {
     private val bd = Room.databaseBuilder(
         application.applicationContext,
         AppDatabase::class.java,
-        "database-categories"
+        "database-category"
     ).build()
     private val categoryDao = bd.categoryDao()
+    private val recipeListDao = bd.recipeListDao()
 
     suspend fun getCategoriesFromCache() = withContext(Dispatchers.IO) {
-        categoryDao.getAll()
+        categoryDao.getAllCategories()
     }
 
     suspend fun addCategoriesToCache(categories: List<Category>) =
         withContext(Dispatchers.IO) { categoryDao.addCategories(categories) }
+
+    suspend fun getRecipeListFromCache() =
+        withContext(Dispatchers.IO) { recipeListDao.getAllRecipes() }
+
+    suspend fun addRecipeListToCache(recipeList: List<Recipe>) =
+        withContext(Dispatchers.IO) { recipeListDao.replaceAllRecipes(recipeList) }
+
+    suspend fun getRecipeByRecipeIdFromCache(recipeId: Int) =
+        withContext(Dispatchers.IO) { recipeListDao.getRecipeById(recipeId) }
 
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         return withContext(Dispatchers.IO) {
@@ -93,7 +103,6 @@ class RecipesRepository(application: Application) {
 
     suspend fun getCategories(): List<Category>? {
         return withContext(Dispatchers.IO) {
-            Thread.sleep(10000)
             try {
                 val categoriesCall: Call<List<Category>> = recipeApiService.getCategories()
                 val categoriesResponse: Response<List<Category>> = categoriesCall.execute()
@@ -105,4 +114,3 @@ class RecipesRepository(application: Application) {
         }
     }
 }
-
