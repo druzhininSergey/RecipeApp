@@ -34,7 +34,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             val recipeDB = recipesRepository.getRecipeByRecipeIdFromCache(recipeId)
             val recipeBackend = recipesRepository.getRecipeByRecipeId(recipeId)
 
-            val recipe = if (recipeBackend == null) recipeDB else recipeBackend
+            val recipe = recipeBackend ?: recipeDB
             if (recipe == null) _recipeState.value = recipeState.value?.copy(isError = true)
             val isFavorite = getFavorites().contains(recipeId.toString())
 
