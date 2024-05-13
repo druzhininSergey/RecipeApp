@@ -51,6 +51,13 @@ class RecipesRepository(application: Application) {
     suspend fun getRecipeByRecipeIdFromCache(recipeId: Int) =
         withContext(Dispatchers.IO) { recipeListDao.getRecipeById(recipeId) }
 
+    suspend fun getFavoriteRecipesFromCache() =
+        withContext(Dispatchers.IO) { recipeListDao.getFavoriteRecipes() }
+
+    suspend fun updateRecipeInCache(recipe: Recipe) = withContext(Dispatchers.IO) {
+        recipeListDao.updateRecipe(recipe.copy(isFavorite = !recipe.isFavorite))
+    }
+
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         return withContext(Dispatchers.IO) {
             try {
