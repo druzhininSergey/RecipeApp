@@ -31,7 +31,10 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadRecipe(recipeId: Int) {
         viewModelScope.launch {
-            val recipe = recipesRepository.getRecipeByRecipeId(recipeId)
+            val recipeDB = recipesRepository.getRecipeByRecipeIdFromCache(recipeId)
+            val recipeBackend = recipesRepository.getRecipeByRecipeId(recipeId)
+
+            val recipe = recipeBackend ?: recipeDB
             if (recipe == null) _recipeState.value = recipeState.value?.copy(isError = true)
             val isFavorite = getFavorites().contains(recipeId.toString())
 

@@ -29,9 +29,12 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
             val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
             if (category == null) _recipesState.value = recipesState.value?.copy(isError = true)
 
-            val recipesList = recipesRepository.getRecipesListByCategoryId(categoryId)
-            if (recipesList == null) _recipesState.value = recipesState.value?.copy(isError = true)
-            else _recipesState.value = recipesState.value?.copy(
+            val recipesListDB = recipesRepository.getRecipeListFromCache()
+            val recipeListBackend = recipesRepository.getRecipesListByCategoryId(categoryId)
+            recipeListBackend?.let { recipesRepository.addRecipeListToCache(it) }
+            val recipesList = recipeListBackend ?: recipesListDB
+
+            _recipesState.value = recipesState.value?.copy(
                 recipesList = recipesList,
                 categoryName = category?.title,
                 titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,

@@ -17,20 +17,22 @@ data class Category(
     @ColumnInfo(name = "image_url") val imageUrl: String,
 ) : Parcelable
 
+@Entity
 @Serializable
 @Parcelize
 data class Recipe(
-    val id: Int,
-    val title: String,
-    val ingredients: List<Ingredient>,
-    val method: List<String>,
-    val imageUrl: String,
+    @PrimaryKey val id: Int,
+    @ColumnInfo(name = "title") val title: String,
+    @ColumnInfo(name = "ingredients") val ingredients: List<Ingredient>,
+    @ColumnInfo(name = "method") val method: List<String>,
+    @ColumnInfo(name = "image_url") val imageUrl: String,
 ) : Parcelable
 
+@Entity
 @Serializable
 @Parcelize
 data class Ingredient(
-    val quantity: String,
-    val unitOfMeasure: String,
-    val description: String,
+    @ColumnInfo(name = "quantity") val quantity: String,
+    @ColumnInfo(name = "unit_of_measure") val unitOfMeasure: String,
+    @ColumnInfo(name = "description") val description: String,
 ) : Parcelable
