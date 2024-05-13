@@ -31,9 +31,8 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
             } else {
                 val favorites =
                     recipesRepository.getRecipesByIdsList(favoritesIds.joinToString(","))
-                if (favorites == null) _favoritesState.value =
-                    favoritesState.value?.copy(isError = true)
-                else _favoritesState.value =
+                        ?: recipesRepository.getFavoriteRecipesFromCache()
+                _favoritesState.value =
                     favoritesState.value?.copy(favoritesList = favorites, isError = false)
             }
         }

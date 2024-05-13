@@ -2,9 +2,9 @@ package com.example.recipeapp.data
 
 import androidx.room.TypeConverter
 import com.example.recipeapp.model.Ingredient
+import com.example.recipeapp.model.Recipe
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-
 
 class Converters {
     @TypeConverter
@@ -18,12 +18,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromMethodsList(method: List<String>?): String{
+    fun fromMethodsList(method: List<String>?): String {
         return Json.encodeToString(method)
     }
 
     @TypeConverter
-    fun toMethodList(methodString: String?) :List<String>{
+    fun toMethodList(methodString: String?): List<String> {
         return Json.decodeFromString<List<String>>(methodString ?: "")
     }
 }
