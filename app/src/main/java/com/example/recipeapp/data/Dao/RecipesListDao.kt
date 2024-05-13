@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
-import androidx.room.Update
 import com.example.recipeapp.model.Recipe
 
 @Dao
@@ -14,13 +13,7 @@ interface RecipesListDao {
     fun getAllRecipes(): List<Recipe>
 
     @Query("SELECT * FROM recipe WHERE id = :recipeId")
-    fun getRecipeById(recipeId: Int): Recipe
-
-    @Query("SELECT * FROM recipe WHERE is_favorite = 1")
-    fun getFavoriteRecipes(): List<Recipe>
-
-    @Update
-    fun updateRecipe(recipe: Recipe)
+    fun getRecipeById(recipeId: Int): Recipe?
 
     @Transaction
     fun replaceAllRecipes(recipeList: List<Recipe>) {

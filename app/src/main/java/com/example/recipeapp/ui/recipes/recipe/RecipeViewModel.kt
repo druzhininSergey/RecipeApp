@@ -35,12 +35,13 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
             val recipeBackend = recipesRepository.getRecipeByRecipeId(recipeId)
 
             val recipe = recipeBackend ?: recipeDB
+            if (recipe == null) _recipeState.value = recipeState.value?.copy(isError = true)
             val isFavorite = getFavorites().contains(recipeId.toString())
 
             _recipeState.value = recipeState.value?.copy(
                 recipe = recipe,
                 isFavorite = isFavorite,
-                recipeImageUrl = IMAGE_BASE_URL + recipe.imageUrl,
+                recipeImageUrl = IMAGE_BASE_URL + recipe?.imageUrl,
                 isError = false,
             )
         }
@@ -54,13 +55,7 @@ class RecipeViewModel(application: Application) : AndroidViewModel(application) 
         if (!isFavorite) favorites.add(recipeId)
         else favorites.remove(recipeId)
         saveFavorites(favorites)
-        viewModelScope.launch {
-            recipesRepository.updateRecipeInCache(
-                recipesRepository.getRecipeByRecipeIdFromCache(
-                    recipeId.toInt()
-                )
-            )
-        }
+
         _recipeState.value = recipeState.value?.copy(isFavorite = !isFavorite)
     }
 
