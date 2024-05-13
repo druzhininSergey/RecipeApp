@@ -14,7 +14,7 @@ class RecipesListAdapter() :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {
 
     var dataSet: List<Recipe> = emptyList()
-        set(value){
+        set(value) {
             field = value
             notifyDataSetChanged()
         }
