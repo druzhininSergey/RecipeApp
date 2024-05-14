@@ -3,8 +3,9 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
-    kotlin("plugin.serialization") version "1.9.22"
-    id("com.google.devtools.ksp") version "1.9.22-1.0.16"
+    kotlin("plugin.serialization")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -45,12 +46,16 @@ android {
 }
 
 dependencies {
+    val hiltVersion = "2.51.1"
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
     implementation("androidx.room:room-common:2.6.1")
     val room_version = "2.6.1"
 
-    implementation ("androidx.room:room-runtime:$room_version")
-    annotationProcessor ("androidx.room:room-compiler:$room_version")
-    ksp ("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
+    annotationProcessor("androidx.room:room-compiler:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
 
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
@@ -67,5 +72,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
-    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

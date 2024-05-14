@@ -8,6 +8,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.databinding.ItemIngredientBinding
 import com.example.recipeapp.model.Ingredient
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.math.RoundingMode
 

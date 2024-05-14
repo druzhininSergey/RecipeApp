@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CategoriesViewModel(private val recipesRepository: RecipesRepository,) : ViewModel() {
+@HiltViewModel
+class CategoriesViewModel @Inject constructor(private val recipesRepository: RecipesRepository) : ViewModel() {
 
     private var _categoriesState = MutableLiveData(CategoriesState())
     val categoriesState: LiveData<CategoriesState> = _categoriesState

@@ -4,17 +4,21 @@ import com.example.recipeapp.data.Dao.CategoryDao
 import com.example.recipeapp.data.Dao.RecipesListDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class RecipesRepository(
+class RecipesRepository @Inject constructor(
     private val recipeListDao: RecipesListDao,
     private val categoryDao: CategoryDao,
     private val recipeApiService: RecipeApiService,
-    private val ioDispatcher: CoroutineContext,
 ) {
+    private val ioDispatcher: CoroutineContext = Dispatchers.IO
+
     suspend fun getCategoriesFromCache() = withContext(ioDispatcher) {
         categoryDao.getAllCategories()
     }

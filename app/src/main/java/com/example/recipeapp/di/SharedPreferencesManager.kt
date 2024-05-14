@@ -6,7 +6,7 @@ import com.example.recipeapp.data.FAVORITES_PREFS_NAME
 import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 
 object SharedPreferencesManager {
-    private lateinit var sharedPreferences: SharedPreferences
+    private var sharedPreferences: SharedPreferences? = null
 
     fun init(context: Context) {
         sharedPreferences = context.getSharedPreferences(
@@ -17,12 +17,12 @@ object SharedPreferencesManager {
 
     fun getFavorites(): MutableSet<String> {
         return HashSet(
-            sharedPreferences.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf()
+            sharedPreferences?.getStringSet(FAVORITE_PREFS_KEY, HashSet<String>()) ?: mutableSetOf()
         )
     }
 
     fun saveFavorites(idList: Set<String>) {
-        with(sharedPreferences.edit()) {
+        with(sharedPreferences?.edit()) {
             this?.putStringSet(com.example.recipeapp.data.FAVORITE_PREFS_KEY, idList)
             this?.apply()
         }

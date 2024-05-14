@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 
 class ItemDecoration(
     private val dividerHeight: Int,

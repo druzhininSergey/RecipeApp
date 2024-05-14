@@ -12,9 +12,12 @@ import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.di.SharedPreferencesManager
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipeViewModel(
+@HiltViewModel
+class RecipeViewModel @Inject constructor(
     private val recipesRepository: RecipesRepository,
 ) : ViewModel() {
 

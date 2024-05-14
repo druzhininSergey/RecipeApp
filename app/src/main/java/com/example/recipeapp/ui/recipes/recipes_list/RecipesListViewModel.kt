@@ -8,9 +8,12 @@ import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class RecipesListViewModel(
+@HiltViewModel
+class RecipesListViewModel @Inject constructor(
     private val recipesRepository: RecipesRepository,
 ) : ViewModel() {
 

@@ -9,30 +9,26 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
 import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ItemDecoration
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipeFragment : Fragment() {
 
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
-    private lateinit var recipeViewModel: RecipeViewModel
+    private val recipeViewModel: RecipeViewModel by viewModels()
     private val theme: Theme? = view?.context?.theme
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
     private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val appContainer = (requireActivity().application as RecipesApplication).appContainer
-        recipeViewModel = appContainer.recipeViewModelFactory.create()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

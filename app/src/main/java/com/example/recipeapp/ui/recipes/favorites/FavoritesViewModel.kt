@@ -10,9 +10,12 @@ import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.RecipesRepository
 import com.example.recipeapp.di.SharedPreferencesManager
 import com.example.recipeapp.model.Recipe
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FavoritesViewModel(
+@HiltViewModel
+class FavoritesViewModel @Inject constructor(
     private val recipesRepository: RecipesRepository,
 ) : ViewModel() {
 
