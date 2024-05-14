@@ -10,16 +10,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.ui.recipes.recipes_list.RecipesListAdapter
 import com.example.recipeapp.databinding.FragmentFavoritesBinding
+import com.example.recipeapp.di.AppContainer
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private val binging: FragmentFavoritesBinding by lazy {
         FragmentFavoritesBinding.inflate(layoutInflater)
     }
-    private val favoritesViewModel: FavoritesViewModel by activityViewModels()
+    private lateinit var favoritesViewModel: FavoritesViewModel
     private val favoritesAdapter = RecipesListAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (requireActivity().application as RecipesApplication).appContainer
+        favoritesViewModel = appContainer.favoritesViewModelFactory.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +47,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private fun initRecycler() {
         binging.rvFavorites.adapter = favoritesAdapter
         favoritesViewModel.favoritesState.observe(viewLifecycleOwner) { state ->
-            if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+            if (state.isError) Toast.makeText(
+                context,
+                "Ошибка получения данных",
+                Toast.LENGTH_SHORT
+            ).show()
             favoritesAdapter.dataSet = state.favoritesList
             binging.tvNoFavorites.isVisible = state.favoritesList.isEmpty()
             binging.rvFavorites.isVisible = state.favoritesList.isNotEmpty()

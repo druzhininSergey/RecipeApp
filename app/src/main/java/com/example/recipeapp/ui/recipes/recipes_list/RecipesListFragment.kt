@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
+import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
 
 class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
@@ -18,9 +18,16 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
     private val binding: FragmentListRecipesBinding by lazy {
         FragmentListRecipesBinding.inflate(layoutInflater)
     }
-    private val recipesViewModel: RecipesViewModel by activityViewModels()
+    private lateinit var recipesListViewModel: RecipesListViewModel
     private val recipesListAdapter = RecipesListAdapter()
     private val recipesListFragmentArgs: RecipesListFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (requireActivity().application as RecipesApplication).appContainer
+        recipesListViewModel = appContainer.recipesListViewModelFactory.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,14 +38,14 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recipesViewModel.loadRecipesList(recipesListFragmentArgs.categoryId)
-        recipesViewModel.recipesState.observe(viewLifecycleOwner) { state ->
+        recipesListViewModel.loadRecipesList(recipesListFragmentArgs.categoryId)
+        recipesListViewModel.recipesState.observe(viewLifecycleOwner) { state ->
             initUI(state)
             initRecycler(state)
         }
     }
 
-    private fun initUI(state: RecipesViewModel.RecipesState) {
+    private fun initUI(state: RecipesListViewModel.RecipesState) {
         binding.rvRecipes.adapter = recipesListAdapter
         Glide.with(this).load(state.titleImageUrl)
             .placeholder(R.drawable.img_placeholder)
@@ -51,7 +58,7 @@ class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
         }
     }
 
-    private fun initRecycler(state: RecipesViewModel.RecipesState) {
+    private fun initRecycler(state: RecipesListViewModel.RecipesState) {
         if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT)
             .show()
         recipesListAdapter.dataSet = state.recipesList

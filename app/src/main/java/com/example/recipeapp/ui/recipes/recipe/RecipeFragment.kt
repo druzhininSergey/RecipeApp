@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
+import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ItemDecoration
 
@@ -20,11 +21,18 @@ class RecipeFragment : Fragment() {
     private val binding: FragmentRecipeBinding by lazy {
         FragmentRecipeBinding.inflate(layoutInflater)
     }
-    private val recipeViewModel: RecipeViewModel by activityViewModels()
+    private lateinit var recipeViewModel: RecipeViewModel
     private val theme: Theme? = view?.context?.theme
     private val ingredientsAdapter = IngredientsAdapter()
     private val methodAdapter = MethodAdapter()
     private val recipeFragmentArgs: RecipeFragmentArgs by navArgs()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (requireActivity().application as RecipesApplication).appContainer
+        recipeViewModel = appContainer.recipeViewModelFactory.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
