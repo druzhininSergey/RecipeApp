@@ -1,9 +1,8 @@
 package com.example.recipeapp.ui.recipes.recipes_list
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.RecipesRepository
@@ -11,11 +10,13 @@ import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
 import kotlinx.coroutines.launch
 
-class RecipesViewModel(application: Application) : AndroidViewModel(application) {
+class RecipesListViewModel(
+    private val recipesRepository: RecipesRepository,
+) : ViewModel() {
 
     private var _recipesState = MutableLiveData(RecipesState())
     val recipesState: LiveData<RecipesState> = _recipesState
-    private val recipesRepository = RecipesRepository(getApplication())
+
 
     data class RecipesState(
         var recipesList: List<Recipe> = emptyList(),

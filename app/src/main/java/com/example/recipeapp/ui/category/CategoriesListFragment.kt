@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
-import com.example.recipeapp.data.BASE_URL
-import com.example.recipeapp.data.IMAGE_BASE_URL
-import com.example.recipeapp.data.RecipesRepository
+import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentListCategoriesBinding
 
 class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
@@ -19,8 +16,15 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     private val binding: FragmentListCategoriesBinding by lazy {
         FragmentListCategoriesBinding.inflate(layoutInflater)
     }
-    private val categoriesViewModel: CategoriesViewModel by viewModels()
+    private lateinit var categoriesViewModel: CategoriesViewModel
     private val categoriesListAdapter = CategoriesListAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val appContainer = (requireActivity().application as RecipesApplication).appContainer
+        categoriesViewModel = appContainer.categoriesViewModelFactory.create()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +42,11 @@ class CategoriesListFragment : Fragment(R.layout.fragment_list_categories) {
     private fun initRecycler() {
         binding.rvCategories.adapter = categoriesListAdapter
         categoriesViewModel.categoriesState.observe(viewLifecycleOwner) { state ->
-            if (state.isError) Toast.makeText(context, "Ошибка получения данных", Toast.LENGTH_SHORT).show()
+            if (state.isError) Toast.makeText(
+                context,
+                "Ошибка получения данных",
+                Toast.LENGTH_SHORT
+            ).show()
             categoriesListAdapter.dataSet = state.categories
         }
 
