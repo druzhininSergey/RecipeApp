@@ -36,9 +36,8 @@ class RecipesListViewModel @Inject constructor(
             val recipesListDB = if (categoryId in 0..5) {
                 recipesRepository.getRecipeListFromCache()
                     .filter { it.id in categoryId * 100..(categoryId * 100 + 99) }
-            } else {
-                null
-            }
+            } else null
+
             val recipeListBackend = recipesRepository.getRecipesListByCategoryId(categoryId)
             recipeListBackend?.let { recipesRepository.addRecipeListToCache(it) }
             val recipesList = recipeListBackend ?: recipesListDB
