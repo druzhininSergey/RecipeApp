@@ -33,17 +33,24 @@ class RecipesListViewModel @Inject constructor(
             val category: Category? = recipesRepository.getCategoryByCategoryId(categoryId)
             if (category == null) _recipesState.value = recipesState.value?.copy(isError = true)
 
-            val recipesListDB = recipesRepository.getRecipeListFromCache()
+            val recipesListDB = if (categoryId in 0..5) {
+                recipesRepository.getRecipeListFromCache()
+                    .filter { it.id in categoryId * 100..(categoryId * 100 + 99) }
+            } else {
+                null
+            }
             val recipeListBackend = recipesRepository.getRecipesListByCategoryId(categoryId)
             recipeListBackend?.let { recipesRepository.addRecipeListToCache(it) }
             val recipesList = recipeListBackend ?: recipesListDB
 
-            _recipesState.value = recipesState.value?.copy(
-                recipesList = recipesList,
-                categoryName = category?.title,
-                titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
-                isError = false
-            )
+            _recipesState.value = recipesList?.let {
+                recipesState.value?.copy(
+                    recipesList = it,
+                    categoryName = category?.title,
+                    titleImageUrl = IMAGE_BASE_URL + category?.imageUrl,
+                    isError = false
+                )
+            }
         }
     }
 }

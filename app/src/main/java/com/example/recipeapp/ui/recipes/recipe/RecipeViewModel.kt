@@ -1,16 +1,12 @@
 package com.example.recipeapp.ui.recipes.recipe
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.recipeapp.data.FAVORITES_PREFS_NAME
-import com.example.recipeapp.data.FAVORITE_PREFS_KEY
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.data.MIN_RECIPE_SERVINGS
 import com.example.recipeapp.data.RecipesRepository
-import com.example.recipeapp.di.SharedPreferencesManager
 import com.example.recipeapp.model.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -38,7 +34,7 @@ class RecipeViewModel @Inject constructor(
             val recipeBackend = recipesRepository.getRecipeByRecipeId(recipeId)
 
             val recipe = recipeBackend ?: recipeDB
-            val isFavorite = getFavorites().contains(recipeId.toString())
+            val isFavorite = recipeDB.isFavorite
 
             _recipeState.value = recipeState.value?.copy(
                 recipe = recipe,
@@ -50,29 +46,16 @@ class RecipeViewModel @Inject constructor(
     }
 
     fun onFavoritesClicked() {
-        val favorites = getFavorites()
-        val recipeId = _recipeState.value?.recipe?.id.toString()
-        val isFavorite = favorites.contains(recipeId)
-
-        if (!isFavorite) favorites.add(recipeId)
-        else favorites.remove(recipeId)
-        saveFavorites(favorites)
         viewModelScope.launch {
-            recipesRepository.updateRecipeInCache(
-                recipesRepository.getRecipeByRecipeIdFromCache(
-                    recipeId.toInt()
-                )
-            )
+            val recipeId = _recipeState.value?.recipe?.id
+            val recipe = recipeId?.let { recipesRepository.getRecipeByRecipeIdFromCache(it) }
+            if (recipe != null) {
+                val isFavorite =
+                    recipesRepository.getRecipeByRecipeIdFromCache(recipeId).isFavorite
+                _recipeState.value = recipeState.value?.copy(isFavorite = !isFavorite)
+                recipesRepository.updateRecipeInCache(recipe.copy(isFavorite = !isFavorite))
+            }
         }
-        _recipeState.value = recipeState.value?.copy(isFavorite = !isFavorite)
-    }
-
-    private fun getFavorites(): MutableSet<String> {
-        return SharedPreferencesManager.getFavorites()
-    }
-
-    private fun saveFavorites(idList: Set<String>) {
-        viewModelScope.launch { SharedPreferencesManager.saveFavorites(idList) }
     }
 
     fun onChangeServings(servings: Int) {

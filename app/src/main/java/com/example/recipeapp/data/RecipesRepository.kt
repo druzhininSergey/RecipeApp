@@ -19,9 +19,8 @@ class RecipesRepository @Inject constructor(
 ) {
     private val ioDispatcher: CoroutineContext = Dispatchers.IO
 
-    suspend fun getCategoriesFromCache() = withContext(ioDispatcher) {
-        categoryDao.getAllCategories()
-    }
+    suspend fun getCategoriesFromCache() =
+        withContext(ioDispatcher) { categoryDao.getAllCategories() }
 
     suspend fun addCategoriesToCache(categories: List<Category>) =
         withContext(ioDispatcher) { categoryDao.addCategories(categories) }
@@ -30,7 +29,7 @@ class RecipesRepository @Inject constructor(
         withContext(ioDispatcher) { recipeListDao.getAllRecipes() }
 
     suspend fun addRecipeListToCache(recipeList: List<Recipe>) =
-        withContext(ioDispatcher) { recipeListDao.replaceAllRecipes(recipeList) }
+        withContext(ioDispatcher) { recipeListDao.addRecipes(recipeList) }
 
     suspend fun getRecipeByRecipeIdFromCache(recipeId: Int) =
         withContext(ioDispatcher) { recipeListDao.getRecipeById(recipeId) }
@@ -38,9 +37,8 @@ class RecipesRepository @Inject constructor(
     suspend fun getFavoriteRecipesFromCache() =
         withContext(ioDispatcher) { recipeListDao.getFavoriteRecipes() }
 
-    suspend fun updateRecipeInCache(recipe: Recipe) = withContext(ioDispatcher) {
-        recipeListDao.updateRecipe(recipe.copy(isFavorite = !recipe.isFavorite))
-    }
+    suspend fun updateRecipeInCache(recipe: Recipe) =
+        withContext(ioDispatcher) { recipeListDao.updateRecipe(recipe) }
 
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         return withContext(ioDispatcher) {
