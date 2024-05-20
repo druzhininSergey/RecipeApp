@@ -4,7 +4,6 @@ import com.example.recipeapp.data.Dao.CategoryDao
 import com.example.recipeapp.data.Dao.RecipesListDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -25,8 +24,8 @@ class RecipesRepository @Inject constructor(
     suspend fun addCategoriesToCache(categories: List<Category>) =
         withContext(ioDispatcher) { categoryDao.addCategories(categories) }
 
-    suspend fun getRecipeListFromCache() =
-        withContext(ioDispatcher) { recipeListDao.getAllRecipes() }
+    suspend fun getRecipesByCategoryIdFromCache(categoryId: Int) =
+        withContext(ioDispatcher) { recipeListDao.getRecipesByCategoryId(categoryId) }
 
     suspend fun addRecipeListToCache(recipeList: List<Recipe>) =
         withContext(ioDispatcher) { recipeListDao.addRecipes(recipeList) }
