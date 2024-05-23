@@ -1,33 +1,28 @@
 package com.example.recipeapp.ui.recipes.recipes_list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentListRecipesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipesListFragment : Fragment(R.layout.fragment_list_recipes) {
 
     private val binding: FragmentListRecipesBinding by lazy {
         FragmentListRecipesBinding.inflate(layoutInflater)
     }
-    private lateinit var recipesListViewModel: RecipesListViewModel
+    private val recipesListViewModel: RecipesListViewModel by viewModels()
     private val recipesListAdapter = RecipesListAdapter()
     private val recipesListFragmentArgs: RecipesListFragmentArgs by navArgs()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val appContainer = (requireActivity().application as RecipesApplication).appContainer
-        recipesListViewModel = appContainer.recipesListViewModelFactory.create()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

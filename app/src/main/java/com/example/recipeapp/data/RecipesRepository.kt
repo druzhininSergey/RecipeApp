@@ -4,29 +4,31 @@ import com.example.recipeapp.data.Dao.CategoryDao
 import com.example.recipeapp.data.Dao.RecipesListDao
 import com.example.recipeapp.model.Category
 import com.example.recipeapp.model.Recipe
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
-class RecipesRepository(
+class RecipesRepository @Inject constructor(
     private val recipeListDao: RecipesListDao,
     private val categoryDao: CategoryDao,
     private val recipeApiService: RecipeApiService,
-    private val ioDispatcher: CoroutineContext,
 ) {
-    suspend fun getCategoriesFromCache() = withContext(ioDispatcher) {
-        categoryDao.getAllCategories()
-    }
+    private val ioDispatcher: CoroutineContext = Dispatchers.IO
+
+    suspend fun getCategoriesFromCache() =
+        withContext(ioDispatcher) { categoryDao.getAllCategories() }
 
     suspend fun addCategoriesToCache(categories: List<Category>) =
         withContext(ioDispatcher) { categoryDao.addCategories(categories) }
 
-    suspend fun getRecipeListFromCache() =
-        withContext(ioDispatcher) { recipeListDao.getAllRecipes() }
+    suspend fun getRecipesByCategoryIdFromCache(categoryId: Int) =
+        withContext(ioDispatcher) { recipeListDao.getRecipesByCategoryId(categoryId) }
 
     suspend fun addRecipeListToCache(recipeList: List<Recipe>) =
-        withContext(ioDispatcher) { recipeListDao.replaceAllRecipes(recipeList) }
+        withContext(ioDispatcher) { recipeListDao.addRecipes(recipeList) }
 
     suspend fun getRecipeByRecipeIdFromCache(recipeId: Int) =
         withContext(ioDispatcher) { recipeListDao.getRecipeById(recipeId) }
@@ -34,9 +36,8 @@ class RecipesRepository(
     suspend fun getFavoriteRecipesFromCache() =
         withContext(ioDispatcher) { recipeListDao.getFavoriteRecipes() }
 
-    suspend fun updateRecipeInCache(recipe: Recipe) = withContext(ioDispatcher) {
-        recipeListDao.updateRecipe(recipe.copy(isFavorite = !recipe.isFavorite))
-    }
+    suspend fun updateRecipeInCache(recipe: Recipe) =
+        withContext(ioDispatcher) { recipeListDao.updateRecipe(recipe) }
 
     suspend fun getRecipeByRecipeId(recipeId: Int): Recipe? {
         return withContext(ioDispatcher) {

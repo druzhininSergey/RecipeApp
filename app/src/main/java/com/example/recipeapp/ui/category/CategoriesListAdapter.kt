@@ -12,6 +12,7 @@ import com.example.recipeapp.R
 import com.example.recipeapp.data.BASE_URL
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.databinding.ItemCategoryBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.InputStream
 import java.lang.Exception
 
