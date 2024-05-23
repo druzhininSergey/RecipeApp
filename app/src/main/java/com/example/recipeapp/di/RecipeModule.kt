@@ -56,7 +56,7 @@ class RecipeModule {
     }
 
     @Provides
-    fun provideRecipeIpiServise(retrofit: Retrofit): RecipeApiService =
+    fun provideRecipeApiServise(retrofit: Retrofit): RecipeApiService =
         retrofit.create(RecipeApiService::class.java)
 
 }

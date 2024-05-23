@@ -9,7 +9,6 @@ import com.example.recipeapp.R
 import com.example.recipeapp.data.IMAGE_BASE_URL
 import com.example.recipeapp.databinding.ItemRecipesBinding
 import com.example.recipeapp.model.Recipe
-import dagger.hilt.android.AndroidEntryPoint
 
 class RecipesListAdapter() :
     RecyclerView.Adapter<RecipesListAdapter.ViewHolder>() {

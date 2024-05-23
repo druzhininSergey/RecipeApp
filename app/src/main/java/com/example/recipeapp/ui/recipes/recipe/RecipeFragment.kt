@@ -2,18 +2,16 @@ package com.example.recipeapp.ui.recipes.recipe
 
 import android.content.res.Resources.Theme
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.R
-import com.example.recipeapp.RecipesApplication
 import com.example.recipeapp.databinding.FragmentRecipeBinding
 import com.example.recipeapp.ui.ItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
